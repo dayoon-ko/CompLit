@@ -1,0 +1,14 @@
+[project]
+name = "complit"
+version = "1.0.0"
+description = "Evaluation code for CompLit, a scientific literature search benchmark (Inspect)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["inspect-ai>=0.3.240", "datasets>=3.0", "anyio", "openai"]
+
+[project.entry-points.inspect_ai]
+complit = "complit._registry"
+
+[tool.setuptools]
+packages = ["complit", "complit.tools"]
