@@ -1,9 +1,36 @@
-# CompLit — evaluation code
+<h1 align="center">CompLit 📚: Scientific Literature Search Benchmarks<br> Must Cover Implicit, Cumulative, and Unmet Needs 🔍</h1>
 
-Run any LLM agent on **CompLit**, a scientific literature search benchmark, with [Inspect](https://inspect.aisi.org.uk/).
-The data loads from Hugging Face automatically: [`dayoon/CompLit`](https://huggingface.co/datasets/dayoon/CompLit).
+<div align="center">
 
-**Paper:** coming soon · **Project page:** [dayoon-ko.github.io/CompLit](https://dayoon-ko.github.io/CompLit/)
+[![Paper](https://img.shields.io/badge/Paper-coming_soon-b5212f.svg?logo=arxiv)](https://dayoon-ko.github.io/CompLit/)
+[![Project Page](https://img.shields.io/badge/Project-Page-0084ff.svg)](https://dayoon-ko.github.io/CompLit/)
+[![Dataset](https://img.shields.io/badge/Dataset-Hugging_Face-ffd21e.svg?logo=huggingface)](https://huggingface.co/datasets/dayoon/CompLit)
+
+</div>
+
+This repository contains the evaluation code for the paper **"CompLit: Scientific Literature Search Benchmarks Must Cover Implicit, Cumulative, and Unmet Needs."**
+
+CompLit tests whether an agent can find the one paper that meets a researcher's need, or say that none exists, in four settings: **Standard**, **Implicit** (requirements must be inferred), **Cumulative** (requirements arrive over turns) and **Unmet** (no paper qualifies). Any LLM agent runs on it with [Inspect](https://inspect.aisi.org.uk/), and the data loads from Hugging Face automatically.
+
+## Repository Overview
+
+```
+.
+├── complit/
+│   ├── tasks.py         # the four Inspect tasks + the single-turn agent
+│   ├── data.py          # loads dayoon/CompLit from Hugging Face
+│   ├── prompts.py       # every prompt the agent sees
+│   ├── scoring.py       # answer parsing + scoring
+│   ├── cumulative.py    # multi-turn loop for Cumulative
+│   ├── simulator.py     # simulated researcher for Cumulative
+│   ├── _registry.py     # makes `inspect eval complit/<setting>` work
+│   └── tools/
+│       ├── arxiv.py     # arxiv_search, read_paper
+│       └── web.py       # web_search (Serper)
+├── .env.example         # names of the API keys (no values)
+├── pyproject.toml
+└── LICENSE
+```
 
 ---
 
@@ -107,20 +134,6 @@ complit/tasks.py   implicit()  →  Task = data + agent + scorer
 3. **Cumulative.** Each turn's message is fixed in the dataset and sent as written. If the agent asked something or proposed a paper, `gpt-5.4-mini` sends the same message with one added sentence that answers it. Tool history is dropped between turns, and the agent's replies are kept.
 
 The model is whatever you pass to `--model`; no model name is hard-coded.
-
----
-
-## Files
-
-| File | What it does |
-|---|---|
-| `complit/tasks.py` | the four Inspect tasks and the single-turn agent |
-| `complit/cumulative.py` | the multi-turn loop for Cumulative |
-| `complit/simulator.py` | the simulated researcher (prompts and checks) |
-| `complit/prompts.py` | every prompt the agent sees |
-| `complit/scoring.py` | answer parsing and scoring |
-| `complit/data.py` | loads the dataset from Hugging Face |
-| `complit/tools/` | `arxiv_search`, `read_paper`, `web_search` |
 
 ---
 
