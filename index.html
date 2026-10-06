@@ -41,11 +41,11 @@
   --page: 960px; /* one content width for every section (user 2026-10-06) */
   color-scheme: light;
   /* type scale: every text size on the page is one of these five (plus the title) */
-  --fs-label: 19px;
-  --fs-small: 19px;
-  --fs-body: 19px;
-  --fs-h3: 20px;
-  --fs-h2: 30px;
+  --fs-label: 17px;
+  --fs-small: 17px;
+  --fs-body: 17px;
+  --fs-h3: 18px;
+  --fs-h2: 27px;
 }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font: 400 var(--fs-body)/1.6 var(--font-body); padding-inline: 16px; }
@@ -65,10 +65,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--imp); outline-o
 
 /* hero */
 .hero { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; padding-top: 24px; }
-.wordmark { font: 800 clamp(64px, 13vw, 128px)/0.95 var(--font-display); letter-spacing: -0.035em; margin: 0;
+.wordmark { font: 800 clamp(58px, 11.7vw, 115px)/0.95 var(--font-display); letter-spacing: -0.035em; margin: 0;
   background: linear-gradient(95deg, var(--imp-fill) 8%, var(--cum-fill) 58%, var(--unm-fill) 92%);
   -webkit-background-clip: text; background-clip: text; color: transparent; }
-.title-tail { font: 700 clamp(22px, 3.4vw, 32px)/1.2 var(--font-display); max-width: 900px; }
+.title-tail { font: 700 clamp(20px, 3.06vw, 29px)/1.2 var(--font-display); max-width: 900px; }
 .contact { font-size: var(--fs-body); }
 .contact a { color: var(--muted); text-decoration: none; }
 .contact a:hover { text-decoration: underline; }
@@ -195,10 +195,10 @@ footer { color: var(--muted); font-size: var(--fs-small); text-align: center; pa
 }
 @media (max-width: 520px) {
   .affils .nw { white-space: normal; } /* long affiliations (KAIST) cannot fit one phone line */
-  body { font-size: 19px; }
+  body { font-size: 17px; }
   main { gap: 56px; }
   .settings { grid-template-columns: minmax(0, 1fr); }
-  h2 { font-size: 25px; }
+  h2 { font-size: 22px; }
   .bar-row { grid-template-columns: 96px minmax(0, 1fr) 46px; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
@@ -209,7 +209,7 @@ footer { color: var(--muted); font-size: var(--fs-small); text-align: center; pa
 <main>
   <header class="hero col" style="max-width: var(--page)">
     <h1 class="wordmark">CompLit</h1>
-    <p class="title-tail">Scientific Literature Search Benchmarks Must Cover <span class="t-imp">Implicit</span>, <span class="t-cum">Cumulative</span>, and <span class="t-unm">Unmet</span> Needs</p>
+    <p class="title-tail">Scientific Literature Search Benchmarks Must Cover<br><span class="t-imp">Implicit</span>, <span class="t-cum">Cumulative</span>, and <span class="t-unm">Unmet</span> Needs</p>
     <p class="authors"><span class="nw">Dayoon Ko<sup>1</sup></span> <span class="nw">Jihyuk Kim<sup>2</sup></span> <span class="nw">Soyeong Jeong<sup>3</sup></span> <span class="nw">Young-Jun Lee<sup>4</sup></span> <span class="nw">Dahyun Lee<sup>2</sup></span> <span class="nw">Juyeon Kim<sup>2</sup></span><br><span class="nw">Gunhee Kim<sup>1</sup></span> <span class="nw">Moontae Lee<sup>2,5</sup></span> <span class="nw">Kyungjae Lee<sup>2,6</sup></span></p>
     <p class="affils"><span class="nw"><sup>1</sup>Seoul National University</span> <span class="nw"><sup>2</sup>LG AI Research</span> <span class="nw"><sup>3</sup>Korea Advanced Institute of Science and Technology</span><br><span class="nw"><sup>4</sup>University of Minnesota</span> <span class="nw"><sup>5</sup>University of Illinois Chicago</span> <span class="nw"><sup>6</sup>University of Seoul</span></p>
     <p class="contact"><a href="mailto:dayoon.ko@vision.snu.ac.kr">dayoon.ko@vision.snu.ac.kr</a></p>
