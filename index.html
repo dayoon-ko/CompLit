@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="CompLit: a scientific literature search benchmark with Standard, Implicit, Cumulative and Unmet settings across all eight arXiv domains.">
+<meta property="og:title" content="CompLit">
+<meta property="og:description" content="CompLit: a scientific literature search benchmark with Standard, Implicit, Cumulative and Unmet settings across all eight arXiv domains.">
+<meta property="og:image" content="https://dayoon-ko.github.io/CompLit/static/video/teaser_poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230084ff'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='16' text-anchor='middle' fill='white'%3ECL%3C/text%3E%3C/svg%3E">
+<title>CompLit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Single white theme on purpose (user request 2026-10-06): no dark-mode blocks.
+   Layout: one reading column (~760px) that widens to ~1080px for figures, the example browser and the results table.
+   Colour: the paper's own setting colours (Standard gray, Implicit blue, Cumulative red, Unmet purple) are the only accents. */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --ink: #16181d;
+  --muted: #5a5e6b;
+  --line: #e2e5ec;
+  --chip: #eef0f5;
+  --std: #52514e;
+  --imp: #0077e6;
+  --cum: #e5383d;
+  --unm: #9b45d6;
+  --imp-fill: #0084ff;
+  --cum-fill: #ff4a4f;
+  --unm-fill: #c363ff;
+  --ok: #2f8a55;
+  --bad: #cf5d55;
+  --paper: #ffffff;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --narrow: 760px;
+  color-scheme: light;
+  --wide: 1080px;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--font-body); padding-inline: 16px; }
+main { padding-block: 40px 64px; display: flex; flex-direction: column; gap: 72px; }
+.col { width: 100%; max-width: var(--narrow); margin-inline: auto; }
+.wide { width: 100%; max-width: var(--wide); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: 30px; font-weight: 700; line-height: 1.15; }
+h3 { font-size: 19px; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--imp); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--imp); outline-offset: 2px; }
+.eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.section { display: flex; flex-direction: column; gap: 20px; }
+.lede { color: var(--muted); }
+.t-imp { color: var(--imp); } .t-cum { color: var(--cum); } .t-unm { color: var(--unm); } .t-std { color: var(--std); }
+
+/* hero */
+.hero { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; padding-top: 24px; }
+.wordmark { font: 800 clamp(64px, 13vw, 128px)/0.95 var(--font-display); letter-spacing: -0.035em; margin: 0;
+  background: linear-gradient(95deg, var(--imp-fill) 8%, var(--cum-fill) 58%, var(--unm-fill) 92%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.title-tail { font: 700 clamp(22px, 3.4vw, 32px)/1.2 var(--font-display); max-width: 900px; }
+.venue { font: 500 13px/1 var(--font-mono); color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.authors { color: var(--muted); font-size: 16px; }
+.links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 4px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; font: 600 15px/1 var(--font-body);
+  background: var(--ink); color: var(--bg); text-decoration: none; border: 1px solid var(--ink); }
+.btn svg { width: 16px; height: 16px; fill: currentColor; }
+.btn.off { background: transparent; color: var(--muted); border-color: var(--line); cursor: default; }
+.btn.off small { font: 500 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+
+/* video */
+.video-frame { border-radius: 14px; overflow: hidden; background: var(--bg); aspect-ratio: 16 / 9; max-width: 100%; border: 1px solid var(--line); }
+.video-frame video { width: 100%; height: 100%; display: block; }
+
+/* tldr */
+.tldr { font-size: 19px; line-height: 1.55; }
+.tldr b { font-weight: 600; }
+
+/* figures */
+figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.paper-fig { background: var(--paper); border-radius: 12px; padding: 14px; border: 1px solid var(--line); }
+.paper-fig img { display: block; width: 100%; height: auto; }
+figcaption { font-size: 14.5px; color: var(--muted); line-height: 1.5; max-width: var(--narrow); }
+figcaption b { color: var(--ink); font-weight: 600; }
+
+/* settings grid */
+.settings { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.setting { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border-top: 4px solid var(--c); }
+.setting .name { font: 700 20px/1.1 var(--font-display); color: var(--c); }
+.setting .verb { font: 500 12px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.setting p { font-size: 15px; line-height: 1.5; }
+.setting .n { margin-top: auto; font: 500 13px/1.3 var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.s-std { --c: var(--std); } .s-imp { --c: var(--imp); } .s-cum { --c: var(--cum); } .s-unm { --c: var(--unm); }
+
+/* stats */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--line); }
+.stat { padding: 18px 12px; display: flex; flex-direction: column; gap: 4px; }
+.stat + .stat { border-left: 1px solid var(--line); }
+.stat .v { font: 700 34px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.stat .k { font-size: 14px; color: var(--muted); }
+.sources { display: flex; flex-direction: column; gap: 10px; }
+.bar-row { display: grid; grid-template-columns: 116px minmax(0, 1fr) 54px; gap: 12px; align-items: center; font-size: 14.5px; }
+.bar-track { height: 10px; background: var(--chip); border-radius: 5px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--ink); border-radius: 5px; opacity: .78; }
+.bar-row .num { font: 500 13px var(--font-mono); text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+.src-def { font-size: 14.5px; color: var(--muted); }
+.src-def b { color: var(--ink); font-weight: 600; }
+
+/* example browser */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab { font: 600 15px/1 var(--font-body); padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--c); border-color: var(--c); color: #fff; }
+.ex { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 26px; }
+.ex-label { font: 500 11.5px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
+.ex-q { font-size: 16px; line-height: 1.6; }
+.ex-q mark { background: color-mix(in srgb, var(--unm) 18%, transparent); color: inherit; padding: 1px 2px; border-radius: 3px; }
+.turns { display: flex; flex-direction: column; gap: 10px; }
+.turn { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; font-size: 15px; line-height: 1.5; }
+.turn .tn { font: 600 12px/1 var(--font-mono); color: #fff; background: var(--cum); border-radius: 6px; height: 24px; display: grid; place-items: center; }
+.turn .adds { font: 500 11.5px var(--font-mono); color: var(--muted); }
+.cons { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.cons li { border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; font-size: 14.5px; line-height: 1.45; display: flex; flex-direction: column; gap: 6px; }
+.cons li.false { border-color: var(--unm); border-style: dashed; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font: 500 11px/1 var(--font-mono); padding: 4px 7px; border-radius: 5px; background: var(--chip); color: var(--muted); }
+.tag.lvl-inferred { color: var(--imp); }
+.tag.field { color: var(--ink); }
+.answer { margin-top: 16px; border-radius: 10px; padding: 12px 14px; font-size: 15px; line-height: 1.45; background: var(--chip); }
+.answer .ok { color: var(--ok); font-weight: 600; }
+.answer .no { color: var(--unm); font-weight: 600; }
+.answer .near { color: var(--muted); font-size: 14px; display: block; margin-top: 6px; }
+
+/* results */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table.res { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 15px; }
+.res th, .res td { padding: 9px 14px; text-align: right; font-variant-numeric: tabular-nums; }
+.res th:first-child, .res td:first-child { text-align: left; }
+.res thead th { font: 700 14px var(--font-display); border-bottom: 1px solid var(--line); white-space: nowrap; }
+.res tbody tr + tr td { border-top: 1px solid var(--line); }
+.res tr.grp td { font: 500 11.5px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); background: var(--bg); padding-block: 7px; }
+.res td.cell { font-family: var(--font-mono); font-size: 14px; position: relative; width: 17%; }
+.res td.cell span { position: relative; z-index: 1; }
+.res td.cell i { position: absolute; right: 8px; top: 50%; height: 22px; transform: translateY(-50%); border-radius: 4px; background: var(--c); opacity: .14; }
+.res td.best span { font-weight: 600; }
+.res td.na { color: var(--muted); }
+.res td.cell.c-std { --c: var(--std); } .res td.cell.c-imp { --c: var(--imp); } .res td.cell.c-cum { --c: var(--cum); } .res td.cell.c-unm { --c: var(--unm); }
+.note { font-size: 14px; color: var(--muted); }
+
+/* findings */
+.finding { display: flex; flex-direction: column; gap: 14px; }
+.finding .claim { font: 700 22px/1.25 var(--font-display); }
+.finding .claim .k { font: 500 12px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+.finding p { color: var(--muted); }
+.finding p.claim { color: var(--ink); }
+
+/* domain / year split */
+.split { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 40px; align-items: start; }
+.split-text { display: flex; flex-direction: column; gap: 32px; }
+
+/* code + bibtex */
+.code { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.code pre { margin: 0; padding: 18px; overflow-x: auto; font: 400 14px/1.6 var(--font-mono); }
+.copy { position: absolute; top: 10px; right: 10px; font: 500 12px var(--font-mono); padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
+footer { color: var(--muted); font-size: 13.5px; text-align: center; padding-bottom: 32px; }
+
+@media (max-width: 860px) {
+  .settings { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ex { grid-template-columns: minmax(0, 1fr); }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat:nth-child(3) { border-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  main { gap: 56px; }
+  .settings { grid-template-columns: minmax(0, 1fr); }
+  h2 { font-size: 25px; }
+  .bar-row { grid-template-columns: 96px minmax(0, 1fr) 46px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+
+</head>
+<body>
+<main>
+  <header class="hero col" style="max-width: var(--wide)">
+    <h1 class="wordmark">CompLit</h1>
+    <p class="title-tail">Scientific Literature Search Benchmarks Must Cover <span class="t-imp">Implicit</span>, <span class="t-cum">Cumulative</span>, and <span class="t-unm">Unmet</span> Needs</p>
+    <p class="authors">Dayoon Ko, Jihyuk Kim, Soyeong Jeong, Young-Jun Lee, Dahyun Lee, Juyeon Kim, Gunhee Kim, Moontae Lee, Kyungjae Lee</p>
+    <p class="venue">Preprint · 2026</p>
+    <nav class="links" aria-label="Resources"><span class="btn off" aria-disabled="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3zM9.5 2v3h3"/></svg>Paper <small>soon</small></span><a class="btn" href="https://github.com/dayoon-ko/CompLit" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 4 1.5 8l4 4 1-1-3-3 3-3zm5 0-1 1 3 3-3 3 1 1 4-4z"/></svg>Code</a><a class="btn" href="https://huggingface.co/datasets/dayoon/CompLit" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1C4.7 1 2 2 2 3.5v9C2 14 4.7 15 8 15s6-1 6-2.5v-9C14 2 11.3 1 8 1zm0 1.5c2.8 0 4.5.8 4.5 1S10.8 4.5 8 4.5 3.5 3.8 3.5 3.5 5.2 2.5 8 2.5z"/></svg>Dataset</a></nav>
+  </header>
+
+  <section class="wide" aria-label="Overview video">
+    <div class="video-frame">
+      <video controls playsinline preload="metadata" poster="static/video/teaser_poster.jpg" src="static/video/complit_teaser.mp4"></video>
+    </div>
+  </section>
+
+  <section class="col section">
+    <span class="eyebrow">Abstract</span>
+    <p class="tldr">How much can we trust an agent to find the paper we need? As researchers, we search the literature from what we have read toward what we have not. We thus describe what we want in our own terms, which a paper may show only <b class="t-imp">implicitly</b>; our requirements <b class="t-cum">grow</b> as we read; and what we seek may lie in an empty region no paper yet covers (<b class="t-unm">unmet</b>). We introduce <b>CompLit</b>, a literature search benchmark spanning all eight arXiv domains, with one diagnostic setting for each of these needs. The strongest agents, Codex (GPT-5.6-Sol) and Claude Code (Opus 4.8), answer 86–87% of Standard queries, yet fall to 66–68% when requirements are implicit, lose another 6 and 15pp, respectively, as they accumulate, and abstain on at most 53% of the queries no paper satisfies. No agent leads in every domain, and all are less accurate on papers from before 2019 or after 2023. Tracing their search, we find that agents often reach the right paper, or the closest one, yet misjudge it.</p>
+  </section>
+
+  <section class="wide section">
+    <figure>
+      <div class="paper-fig"><img src="static/img/fig_intro.png" alt="CompLit overview. A researcher starts from DeepSeek-R1-Zero with two needs: medical image reasoning and in-house RL training. An agent must infer the in-house property from Paper A, reassess Paper A once the researcher adds CT and MRI, and abstain when no paper matches all needs." loading="lazy"></div>
+      <figcaption><b>Motivation and overview.</b> Top: as a researcher reads retrieved papers, their need proves <i>implicit</i>, <i>cumulative</i>, and <i>unmet</i>. The required property is rarely stated outright, each new requirement rules out earlier candidates, and the full set may match no paper. Bottom: the three diagnostic settings test whether an agent <i>infers</i> such a property from paper evidence, <i>reassesses</i> earlier answers as requirements accumulate, and <i>abstains</i> when no paper meets the need.</figcaption>
+    </figure>
+  </section>
+
+  <section class="wide section">
+    <div class="col section" style="margin: 0; max-width: var(--narrow)">
+      <span class="eyebrow">Benchmark</span>
+      <h2>One reference setting, three diagnostic settings</h2>
+      <p class="lede">Each query combines several constraints that one paper satisfies jointly. A system returns one paper, or abstains.</p>
+    </div>
+    <div class="settings">
+      <article class="setting s-std"><span class="verb">Reference</span><span class="name">Standard</span><p>Close to existing benchmarks. Constraints at every evidence level, given at once, and a target always exists.</p><span class="n">350 queries · 251 papers</span></article>
+      <article class="setting s-imp"><span class="verb">Infer</span><span class="name">Implicit</span><p>Every constraint must be inferred from how a paper describes its work or compares to a named paper. Matching words is not enough.</p><span class="n">220 queries · 179 papers</span></article>
+      <article class="setting s-cum"><span class="verb">Reassess</span><span class="name">Cumulative</span><p>The Implicit queries are revealed over 3–5 user turns with a fixed simulator. The final answer is scored.</p><span class="n">220 conversations</span></article>
+      <article class="setting s-unm"><span class="verb">Abstain</span><span class="name">Unmet</span><p>One false constraint is added to a query whose target is easy to find, so no paper qualifies. The correct answer is to abstain.</p><span class="n">300 queries</span></article>
+    </div>
+  </section>
+
+  <section class="wide section" id="examples">
+    <div class="col section" style="margin: 0">
+      <span class="eyebrow">Examples</span>
+      <h2>See a query in each setting</h2>
+      <p class="lede">Real items from the release. Standard and Unmet share a target paper, and so do Implicit and Cumulative.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Setting">
+      <button class="tab s-std" role="tab" id="tab-standard" data-set="standard" aria-selected="true">Standard</button>
+      <button class="tab s-imp" role="tab" id="tab-implicit" data-set="implicit" aria-selected="false">Implicit</button>
+      <button class="tab s-cum" role="tab" id="tab-cumulative" data-set="cumulative" aria-selected="false">Cumulative</button>
+      <button class="tab s-unm" role="tab" id="tab-unmet" data-set="unmet" aria-selected="false">Unmet</button>
+    </div>
+    <div class="ex" id="ex" role="tabpanel" aria-live="polite"></div>
+  </section>
+
+  <section class="col section">
+    <span class="eyebrow">Construction</span>
+    <h2>Constraints come from survey comparison tables</h2>
+    <p class="lede">Survey authors compare the papers they cover on the distinctions that matter in their field. We restate those table cells as constraints, add claims read from each target's figures and its arXiv record, verify each one against the paper, and write queries around a research intent. The authors checked every constraint and every query by hand. An automatic uniqueness check (BM25 and Qwen3-Embedding-8B, top-50 each) removes any query that another paper also satisfies.</p>
+    <div class="stats">
+      <div class="stat"><span class="v">870</span><span class="k">single-turn queries</span></div>
+      <div class="stat"><span class="v">220</span><span class="k">conversations</span></div>
+      <div class="stat"><span class="v">8</span><span class="k">arXiv domains</span></div>
+      <div class="stat"><span class="v">193</span><span class="k">source surveys</span></div>
+    </div>
+    <div class="sources" aria-label="Constraints by source, single-turn sets">
+      <div class="bar-row"><span>Content</span><div class="bar-track"><div class="bar-fill" style="width:44.9%"></div></div><span class="num">2,520</span></div>
+      <div class="bar-row"><span>Figural</span><div class="bar-track"><div class="bar-fill" style="width:33.2%"></div></div><span class="num">1,865</span></div>
+      <div class="bar-row"><span>Comparative</span><div class="bar-track"><div class="bar-fill" style="width:16.0%"></div></div><span class="num">895</span></div>
+      <div class="bar-row"><span>Metadata</span><div class="bar-track"><div class="bar-fill" style="width:5.9%"></div></div><span class="num">330</span></div>
+    </div>
+    <p class="src-def"><b>Content</b>: a cell of the survey table. <b>Figural</b>: a claim a VLM reads from the paper's figures. <b>Comparative</b>: a contrast with another paper in the same table. <b>Metadata</b>: year, venue or affiliation from the arXiv record. Counts cover the 870 single-turn queries, 6.4 constraints per query on average.</p>
+  </section>
+
+  <section class="wide section" id="results">
+    <div class="col section" style="margin: 0">
+      <span class="eyebrow">Results</span>
+      <h2>Strong on Standard, weaker on every diagnostic setting</h2>
+      <p class="lede">Accuracy (%) of thirteen baselines. On Cumulative, the final-turn answer is scored. On Unmet, accuracy is the abstention rate.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="res" id="res">
+        <thead><tr><th scope="col">Baseline</th><th scope="col" class="t-std">Standard</th><th scope="col" class="t-imp">Implicit</th><th scope="col" class="t-cum">Cumulative</th><th scope="col" class="t-unm">Unmet</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="note">– marks settings a baseline does not support: corpus retrievers always return a paper, and only the four frontier agents hold a multi-turn conversation. DCI-Agent-Lite runs with GPT-5.4 nano. Bold marks the best score in each group.</p>
+    <figure>
+      <div class="paper-fig"><img src="static/img/effort_row_web.png" alt="Accuracy against mean tool calls for Codex, Claude, Kimi and DeepSeek in the four settings. All four cluster at 74 to 87 percent on Standard and spread out on the diagnostic settings." loading="lazy"></div>
+      <figcaption><b>Accuracy against search effort.</b> Mean accuracy of the frontier agents falls from 81.4% on Standard by 25.7, 35.1 and 52.6 points on Implicit, Cumulative and Unmet. Agents that search longer are not more accurate.</figcaption>
+    </figure>
+  </section>
+
+  <section class="wide section" id="breakdown">
+    <div class="col section" style="margin: 0">
+      <span class="eyebrow">Accuracy by domain and year</span>
+      <h2>Which agent serves which field</h2>
+      <p class="lede">CompLit covers all eight arXiv domains and papers through 2026, so it can show researchers in each field which agent serves them well and where it may fall short.</p>
+    </div>
+    <div class="split">
+      <figure>
+        <div class="paper-fig"><img src="static/img/tab_domain_year.png" alt="Accuracy table of Codex, Claude, Kimi and DeepSeek on Standard by domain (physics, EESS, statistics, computer science, biology, mathematics, finance and economics) and by publication year (2015 or earlier to 2024 or later)." loading="lazy"></div>
+        <figcaption><b>Accuracy (%) on Standard by domain and publication year of the target</b>, for the four frontier agents. Darker cells mark higher accuracy.</figcaption>
+      </figure>
+      <div class="split-text">
+        <div class="finding">
+          <p class="claim"><span class="k t-std">Domain</span>No agent leads across all domains, and each struggles with different ones.</p>
+          <p>Codex leads in physics, EESS and mathematics, and Claude Code in statistics and biology. Codex scores 85–88% in most domains but 80.4% in computer science, below Claude Code and Kimi. Claude Code scores above 90% in statistics and biology but 79.4% in physics. Kimi and DeepSeek are weakest in physics and statistics.</p>
+        </div>
+        <div class="finding">
+          <p class="claim"><span class="k t-std">Publication year</span>All four are more accurate on papers from 2019–23 than on older or more recent ones.</p>
+          <p>Relative to their best period, the agents score 14–22 points lower on papers from 2018 or earlier. On papers from 2024 onward, Codex, Claude Code and DeepSeek score 8–15 points below their best, and Kimi 5 points below. Older and very recent papers may be harder to retrieve or verify.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wide section" id="findings">
+    <div class="col section" style="margin: 0">
+      <span class="eyebrow">Search dynamics</span>
+      <h2>Agents reach the right paper, or the closest one, yet misjudge it</h2>
+      <p class="lede">We trace every agent run over tool calls or user turns to see where it goes wrong.</p>
+    </div>
+    <div class="finding">
+      <p class="claim"><span class="k t-imp">Implicit · infer</span>The gold paper is retrieved, read and answered less often at every step.</p>
+      <p>From Standard to Implicit, the share of queries where the gold paper is retrieved falls by 12–27 points, read by 16–34, and answered by 19–37. Weaker agents leave more retrieved papers unread, and more read papers unchosen.</p>
+      <div class="paper-fig"><img src="static/img/dynamics_reason.png" alt="Curves of retrieved, read and answered-correctly shares by tool call on Standard and Implicit for four agents." loading="lazy"></div>
+    </div>
+    <div class="finding">
+      <p class="claim"><span class="k t-cum">Cumulative · reassess</span>Two agents that tie on single queries end 11 points apart.</p>
+      <p>Codex rarely picks a wrong paper in the first place. Claude Code often leaves a wrong answer but keeps picking new wrong ones. Kimi and DeepSeek escape few wrong answers, and their current wrong share rises to 61%.</p>
+      <div class="paper-fig"><img src="static/img/dynamics_cum.png" alt="By user turn, the share of conversations committed to the gold paper or to another paper, for four agents." loading="lazy"></div>
+    </div>
+    <div class="finding">
+      <p class="claim"><span class="k t-unm">Unmet · abstain</span>Agents open the near-miss early, then accept it as a match.</p>
+      <p>All four agents open the near-miss paper within ten tool calls in over 90% of queries, yet name a paper as a match in 47–82% of queries. The later an agent decides, the less often it abstains.</p>
+      <div class="paper-fig"><img src="static/img/dynamics_no_match.png" alt="By tool call, the share of queries in which the agent opened the near-miss paper, gave a final verdict, and abstained correctly." loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="col section" id="data">
+    <span class="eyebrow">Use the data</span>
+    <h2>Load CompLit</h2>
+    <p class="lede">Four configurations, one <code>test</code> split each. Every row carries the query, its constraints with evidence, the gold paper and the source survey.</p>
+    <div class="code"><button class="copy" type="button" data-copy="load-code">Copy</button><pre id="load-code">from datasets import load_dataset
+
+# standard · implicit · cumulative · unmet
+ds = load_dataset("dayoon/CompLit", "implicit", split="test")
+row = ds[0]
+print(row["question"])
+print(row["paper"]["title"])   # gold paper</pre></div>
+  </section>
+
+  <section class="col section" id="bibtex">
+    <span class="eyebrow">Citation</span>
+    <h2>BibTeX</h2>
+    <div class="code"><button class="copy" type="button" data-copy="bib">Copy</button><pre id="bib">@article{ko2026complit,
+  title   = {CompLit: Scientific Literature Search Benchmarks Must Cover Implicit, Cumulative, and Unmet Needs},
+  author  = {Ko, Dayoon and Kim, Jihyuk and Jeong, Soyeong and Lee, Young-Jun and Lee, Dahyun and Kim, Juyeon and Kim, Gunhee and Lee, Moontae and Lee, Kyungjae},
+  journal = {arXiv preprint arXiv:XXXX.XXXXX},
+  year    = {2026}
+}</pre></div>
+  </section>
+</main>
+<footer class="col">CompLit · Figures from the paper.</footer>
+
+<script type="application/json" id="examples-data">{"standard": {"setting": "standard", "question": "I need a Python tool that implements a structured four-step causal inference workflow, taking domain knowledge and data to construct causal graphs and estimate effects. It should support standard identification strategies like backdoor, frontdoor, and instrumental variable adjustments, with built-in mechanisms to refute estimates and validate results before deployment. The exact setup I'm matching is a Microsoft Research paper.", "constraints": [{"source": "content", "value": "Python", "evidence_level": "explicit", "field": "programming_language"}, {"source": "content", "value": "Average causal effect for backdoor, frontdoor, instrumental variable, and other identification methods", "evidence_level": "paraphrased", "field": "supported_methods"}, {"source": "figural", "value": "four-step analysis pipeline for causal inference", "evidence_level": "paraphrased", "field": "pipeline"}, {"source": "figural", "value": "Model causal mechanisms, Identify the target estimand, Estimate causal effect, and Refute estimate", "evidence_level": "explicit", "field": "pipeline_stages"}, {"source": "metadata", "value": "2020", "evidence_level": null, "field": "year"}, {"source": "metadata", "value": "Microsoft Research", "evidence_level": null, "field": "affiliation"}], "paper": {"title": "DoWhy: An End-to-End Library for Causal Inference", "arxiv_id": "2011.04216", "year": 2020}, "survey": "Causality for Earth Science -- A Review on Time-series and Spatiotemporal Causality Methods"}, "implicit": {"setting": "implicit", "question": "I'm trying to identify parametric spatiotemporal dynamical models where the coefficients exhibit step changes, but I'm struggling with the sharp transitions in the loss landscape when tuning regularization. I need a procedure that handles these coefficient variations without requiring Bayesian uncertainty quantification, and I want to avoid methods that get bogged down in handling missing data. I also need an approach that is illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data', so I can focus on the core identification pipeline without that overhead.", "constraints": [{"source": "content", "value": "No", "evidence_level": "inferred", "field": "uncertainty_quantification"}, {"source": "content", "value": "No", "evidence_level": "inferred", "field": "missing_data_handling"}, {"source": "figural", "value": "exhibits a plateau of low loss followed by a sharp transition for parametric PDE identification", "evidence_level": null, "field": "loss_landscape"}, {"source": "figural", "value": "coefficients w_xx and w_yy exhibit a step change while vw_y remains constant", "evidence_level": null, "field": "coefficient_variation"}, {"source": "comparative", "value": "illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'", "evidence_level": "inferred", "field": "real_data_comparison"}], "paper": {"title": "Data-driven identification of parametric partial differential equations", "arxiv_id": "1806.00732", "year": 2018}, "survey": "A Review of Data-Driven Discovery for Dynamic Systems"}, "cumulative": {"setting": "cumulative", "question": "I'm trying to identify parametric spatiotemporal dynamical models where the coefficients exhibit step changes, but I'm struggling with the sharp transitions in the loss landscape when tuning regularization. I need a procedure that handles these coefficient variations without requiring Bayesian uncertainty quantification, and I want to avoid methods that get bogged down in handling missing data. I also need an approach that is illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data', so I can focus on the core identification pipeline without that overhead.", "constraints": [{"source": "content", "value": "No", "evidence_level": "inferred", "field": "uncertainty_quantification"}, {"source": "content", "value": "No", "evidence_level": "inferred", "field": "missing_data_handling"}, {"source": "figural", "value": "exhibits a plateau of low loss followed by a sharp transition for parametric PDE identification", "evidence_level": null, "field": "loss_landscape"}, {"source": "figural", "value": "coefficients w_xx and w_yy exhibit a step change while vw_y remains constant", "evidence_level": null, "field": "coefficient_variation"}, {"source": "comparative", "value": "illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'", "evidence_level": "inferred", "field": "real_data_comparison"}], "paper": {"title": "Data-driven identification of parametric partial differential equations", "arxiv_id": "1806.00732", "year": 2018}, "survey": "A Review of Data-Driven Discovery for Dynamic Systems", "turns": [{"turn": 1, "role": "opening", "utterance": "I’m looking for a reproducible, comparatively simple research route that can serve as the basis for my project. I want one paper whose design and evidence fit that role closely enough to be my main technical reference, so could you help me find it?", "revealed_constraints": []}, {"turn": 2, "role": "reveal", "utterance": "The first thing I have to verify is that abrupt changes in the governing structure remain visible rather than being averaged away. In particular, the coefficients w_xx and w_yy must exhibit a step change while vw_y remains constant, because my analysis has to distinguish shifting terms from stable ones.", "revealed_constraints": [3]}, {"turn": 3, "role": "reveal", "utterance": "Once that behavior is established, I need optimization evidence specifically for parametric PDE identification rather than just a summary score. The loss landscape should show a plateau of low loss followed by a sharp transition, so I can judge the usable region and where the behavior changes abruptly.", "revealed_constraints": [2]}, {"turn": 4, "role": "commit", "utterance": "For implementation, I need to keep auxiliary machinery and empirical overhead low enough that the core identification pipeline stays reproducible. The paper should have no uncertainty quantification and no missing-data handling, and it should be illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'; please commit to one paper now, or say plainly if nothing meets everything I’ve asked for.", "revealed_constraints": [0, 1, 4]}]}, "unmet": {"setting": "unmet", "question": "I need a Python tool that implements a structured four-step causal inference workflow, taking domain knowledge and data to construct causal graphs and estimate effects. The workflow should identify the target estimand before modeling the causal mechanisms. It should support standard identification strategies like backdoor, frontdoor, and instrumental variable adjustments, with built-in mechanisms to refute estimates and validate results before deployment.", "constraints": [{"source": "content", "value": "Python", "evidence_level": "explicit", "field": "programming_language"}, {"source": "content", "value": "Average causal effect for backdoor, frontdoor, instrumental variable, and other identification methods", "evidence_level": "paraphrased", "field": "supported_methods"}, {"source": "figural", "value": "four-step analysis pipeline for causal inference", "evidence_level": "paraphrased", "field": "pipeline"}, {"source": "figural", "value": "Model causal mechanisms, Identify the target estimand, Estimate causal effect, and Refute estimate", "evidence_level": "explicit", "field": "pipeline_stages"}], "paper": {"title": "DoWhy: An End-to-End Library for Causal Inference", "arxiv_id": "2011.04216", "year": 2020}, "survey": "Causality for Earth Science -- A Review on Time-series and Spatiotemporal Causality Methods", "unmet": {"added_constraint": "The workflow should identify the target estimand before modeling the causal mechanisms.", "demanded": "Identify the estimand before modeling causal mechanisms", "paper_actually_has": "The pipeline stages are: Model causal mechanisms, Identify the target estimand, Estimate causal effect, and Refute estimate.", "perturbation": "figure_claim_reversal"}}}</script>
+<script>
+(function () {
+  var RESULTS = [
+    ["Corpus retrieval"],
+    ["SPECTER2", 4.6, 0.1, null, null],
+    ["BM25", 28.9, 3.2, null, null],
+    ["ReasonIR", 15.4, 5.5, null, null],
+    ["Qwen3-Embed-8B", 49.1, 18.6, null, null],
+    ["+ Qwen3-Rerank-8B", 66.0, 25.9, null, null, [1, 1, 0, 0]],
+    ["Corpus search agents"],
+    ["DCI-Agent-Lite", 54.3, 24.1, null, 5.9],
+    ["Harness-1", 69.7, 42.3, null, 9.0, [1, 1, 0, 1]],
+    ["Web search agents"],
+    ["DR Tulu", 23.7, 7.3, null, 14.3],
+    ["PaSa", 42.6, 15.9, null, 8.7],
+    ["DeepSeek-V4-Pro", 74.3, 37.3, 35.5, 17.3],
+    ["Kimi-K3", 78.0, 51.8, 37.3, 18.7],
+    ["Claude Code (Opus 4.8)", 86.0, 65.9, 50.5, 26.3],
+    ["Codex CLI (GPT-5.6-Sol)", 87.1, 67.7, 61.8, 52.7, [1, 1, 1, 1]]
+  ];
+  var COLS = ["c-std", "c-imp", "c-cum", "c-unm"];
+  var tb = document.querySelector("#res tbody");
+  RESULTS.forEach(function (r) {
+    var tr = document.createElement("tr");
+    if (r.length === 1) { tr.className = "grp"; tr.innerHTML = '<td colspan="5">' + r[0] + "</td>"; tb.appendChild(tr); return; }
+    var best = r[5] || [0, 0, 0, 0];
+    var html = '<td>' + r[0] + "</td>";
+    for (var i = 0; i < 4; i++) {
+      var v = r[i + 1];
+      if (v === null) { html += '<td class="cell na">–</td>'; continue; }
+      html += '<td class="cell ' + COLS[i] + (best[i] ? " best" : "") + '"><i style="width:calc((100% - 16px) * ' + (v / 100) + ')"></i><span>' + v.toFixed(1) + "</span></td>";
+    }
+    tr.innerHTML = html; tb.appendChild(tr);
+  });
+
+  var EX = JSON.parse(document.getElementById("examples-data").textContent);
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var LEVEL = { explicit: "explicit", paraphrased: "paraphrased", inferred: "inferred" };
+  function consList(cs, extra) {
+    var h = '<ul class="cons">';
+    cs.forEach(function (c, i) {
+      h += '<li><span>' + esc(c.value) + '</span><span class="tags"><span class="tag field">' + esc(c.field) + '</span><span class="tag">' + c.source + "</span>" +
+        (c.evidence_level ? '<span class="tag lvl-' + c.evidence_level + '">' + LEVEL[c.evidence_level] + "</span>" : "") + "</span></li>";
+    });
+    if (extra) h += extra;
+    return h + "</ul>";
+  }
+  function render(set) {
+    var e = EX[set], left = "", right = "";
+    var paper = '<a href="https://arxiv.org/abs/' + e.paper.arxiv_id + '" target="_blank" rel="noopener">' + esc(e.paper.title) + "</a> (" + e.paper.year + ")";
+    if (set === "cumulative") {
+      left = '<div class="ex-label">Conversation · ' + e.turns.length + ' user turns</div><div class="turns">' + e.turns.map(function (t) {
+        var adds = t.revealed_constraints.length ? '<div class="adds">reveals constraint ' + t.revealed_constraints.map(function (i) { return i + 1; }).join(", ") + "</div>" : '<div class="adds">opening, no constraint yet</div>';
+        return '<div class="turn"><span class="tn">T' + t.turn + "</span><div>" + esc(t.utterance) + adds + "</div></div>";
+      }).join("") + "</div>";
+    } else {
+      var q = esc(e.question);
+      if (set === "unmet") q = q.replace(esc(e.unmet.added_constraint), "<mark>" + esc(e.unmet.added_constraint) + "</mark>");
+      left = '<div class="ex-label">Query</div><p class="ex-q">' + q + "</p>";
+    }
+    var extra = "";
+    if (set === "unmet") extra = '<li class="false"><span>' + esc(e.unmet.demanded) + '</span><span class="tags"><span class="tag" style="color:var(--unm)">added false constraint</span></span></li>';
+    right = '<div class="ex-label">Constraints' + (set === "cumulative" ? " (numbered as revealed above)" : "") + "</div>" + consList(e.constraints, extra);
+    if (set === "unmet") {
+      right += '<div class="answer"><span class="no">Correct answer: abstain.</span> No paper satisfies every constraint.<span class="near">Near-miss: ' + paper + ". It shows: " + esc(e.unmet.paper_actually_has) + "</span></div>";
+    } else {
+      right += '<div class="answer"><span class="ok">Target:</span> ' + paper + '<span class="near">Constraints from the survey “' + esc(e.survey) + '”</span></div>';
+    }
+    document.getElementById("ex").innerHTML = "<div>" + left + "</div><div>" + right + "</div>";
+    document.querySelectorAll(".tab").forEach(function (b) { b.setAttribute("aria-selected", b.dataset.set === set ? "true" : "false"); });
+    try { localStorage.setItem("complit-tab", set); } catch (err) {}
+  }
+  document.querySelectorAll(".tab").forEach(function (b) { b.addEventListener("click", function () { render(b.dataset.set); }); });
+  var start = "standard";
+  try { var saved = localStorage.getItem("complit-tab"); if (saved && EX[saved]) start = saved; } catch (err) {}
+  render(start);
+
+  document.querySelectorAll(".copy").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var el = document.getElementById(b.dataset.copy);
+      var done = function () { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy"; }, 1500); };
+      var fallback = function () { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected"; };
+      try { navigator.clipboard.writeText(el.textContent).then(done, fallback); } catch (err) { fallback(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
