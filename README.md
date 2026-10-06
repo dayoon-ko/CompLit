@@ -1,4 +1,9 @@
-<h1 align="center">CompLit 📚: Scientific Literature Search Benchmarks<br> Must Cover Implicit, Cumulative, and Unmet Needs 🔍</h1>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/title_dark.png">
+    <img src="assets/title_light.png" width="820" alt="CompLit: Scientific Literature Search Benchmarks Must Cover Implicit, Cumulative, and Unmet Needs">
+  </picture>
+</p>
 
 <div align="center">
 
