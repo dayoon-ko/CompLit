@@ -12,7 +12,7 @@
 <title>CompLit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>
 /* Single white theme on purpose (user request 2026-10-06): no dark-mode blocks.
    Layout: one reading column (~760px) that widens to ~1080px for figures, the example browser and the results table.
@@ -35,24 +35,30 @@
   --bad: #cf5d55;
   --paper: #ffffff;
   --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --narrow: 760px;
+  --font-body: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif; /* same face as the CompLit wordmark (user 2026-10-06) */
+  --font-mono: var(--font-body); /* labels, tags and table numbers also use the wordmark face */
+  --font-code: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; /* code blocks only */
+  --page: 960px; /* one content width for every section (user 2026-10-06) */
   color-scheme: light;
-  --wide: 1080px;
+  /* type scale: every text size on the page is one of these five (plus the title) */
+  --fs-label: 19px;
+  --fs-small: 19px;
+  --fs-body: 19px;
+  --fs-h3: 20px;
+  --fs-h2: 30px;
 }
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--font-body); padding-inline: 16px; }
+body { background: var(--bg); color: var(--ink); font: 400 var(--fs-body)/1.6 var(--font-body); padding-inline: 16px; }
 main { padding-block: 40px 64px; display: flex; flex-direction: column; gap: 72px; }
-.col { width: 100%; max-width: var(--narrow); margin-inline: auto; }
-.wide { width: 100%; max-width: var(--wide); margin-inline: auto; }
+.col { width: 100%; max-width: var(--page); margin-inline: auto; }
+.wide { width: 100%; max-width: var(--page); margin-inline: auto; }
 h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
-h2 { font-size: 30px; font-weight: 700; line-height: 1.15; }
-h3 { font-size: 19px; font-weight: 700; }
+h2 { font-size: var(--fs-h2); font-weight: 700; line-height: 1.15; }
+h3 { font-size: var(--fs-h3); font-weight: 700; }
 p { margin: 0; }
 a { color: var(--imp); }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--imp); outline-offset: 2px; }
-.eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.eyebrow { font: 500 var(--fs-label)/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .section { display: flex; flex-direction: column; gap: 20px; }
 .lede { color: var(--muted); }
 .t-imp { color: var(--imp); } .t-cum { color: var(--cum); } .t-unm { color: var(--unm); } .t-std { color: var(--std); }
@@ -63,97 +69,109 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--imp); outline-o
   background: linear-gradient(95deg, var(--imp-fill) 8%, var(--cum-fill) 58%, var(--unm-fill) 92%);
   -webkit-background-clip: text; background-clip: text; color: transparent; }
 .title-tail { font: 700 clamp(22px, 3.4vw, 32px)/1.2 var(--font-display); max-width: 900px; }
-.venue { font: 500 13px/1 var(--font-mono); color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
-.authors { color: var(--muted); font-size: 16px; }
+.contact { font-size: var(--fs-body); }
+.contact a { color: var(--muted); text-decoration: none; }
+.contact a:hover { text-decoration: underline; }
+.authors { color: var(--muted); font-size: var(--fs-body); }
+.authors sup, .affils sup { font-size: 0.65em; margin-left: 1px; }
+.affils, .author-notes { color: var(--muted); font-size: var(--fs-body); margin-top: -8px; }
+.affils sup { margin-right: 2px; }
+.nw { white-space: nowrap; } /* keep each name / affiliation on one line */
+.authors .nw, .affils .nw { margin-inline: 0.4em; } /* items are separated by space, not commas */
 .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 4px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; font: 600 15px/1 var(--font-body);
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; font: 600 var(--fs-small)/1 var(--font-body);
   background: var(--ink); color: var(--bg); text-decoration: none; border: 1px solid var(--ink); }
 .btn svg { width: 16px; height: 16px; fill: currentColor; }
 .btn.off { background: transparent; color: var(--muted); border-color: var(--line); cursor: default; }
-.btn.off small { font: 500 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+.btn.off small { font: 500 var(--fs-label)/1 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
 
 /* video */
 .video-frame { border-radius: 14px; overflow: hidden; background: var(--bg); aspect-ratio: 16 / 9; max-width: 100%; border: 1px solid var(--line); }
 .video-frame video { width: 100%; height: 100%; display: block; }
 
 /* tldr */
-.tldr { font-size: 19px; line-height: 1.55; }
+.tldr { font-size: var(--fs-body); line-height: 1.55; }
 .tldr b { font-weight: 600; }
 
 /* figures */
 figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
 .paper-fig { background: var(--paper); border-radius: 12px; padding: 14px; border: 1px solid var(--line); }
 .paper-fig img { display: block; width: 100%; height: auto; }
-figcaption { font-size: 14.5px; color: var(--muted); line-height: 1.5; max-width: var(--narrow); }
+figcaption { font-size: var(--fs-body); color: var(--muted); line-height: 1.5; max-width: var(--page); }
 figcaption b { color: var(--ink); font-weight: 600; }
 
 /* settings grid */
 .settings { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
 .setting { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border-top: 4px solid var(--c); }
-.setting .name { font: 700 20px/1.1 var(--font-display); color: var(--c); }
-.setting .verb { font: 500 12px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-.setting p { font-size: 15px; line-height: 1.5; }
-.setting .n { margin-top: auto; font: 500 13px/1.3 var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.setting .name { font: 700 var(--fs-h3)/1.1 var(--font-display); color: var(--c); }
+.setting .verb { font: 500 var(--fs-label)/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.setting p { font-size: var(--fs-body); line-height: 1.5; }
+.setting .n { margin-top: auto; font: 500 var(--fs-label)/1.3 var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
 .s-std { --c: var(--std); } .s-imp { --c: var(--imp); } .s-cum { --c: var(--cum); } .s-unm { --c: var(--unm); }
 
 /* stats */
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--line); }
 .stat { padding: 18px 12px; display: flex; flex-direction: column; gap: 4px; }
 .stat + .stat { border-left: 1px solid var(--line); }
-.stat .v { font: 700 34px/1 var(--font-display); font-variant-numeric: tabular-nums; }
-.stat .k { font-size: 14px; color: var(--muted); }
+.stat .v { font: 700 var(--fs-h2)/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.stat .k { font-size: var(--fs-small); color: var(--muted); }
 .sources { display: flex; flex-direction: column; gap: 10px; }
-.bar-row { display: grid; grid-template-columns: 116px minmax(0, 1fr) 54px; gap: 12px; align-items: center; font-size: 14.5px; }
+.bar-row { display: grid; grid-template-columns: 116px minmax(0, 1fr) 54px; gap: 12px; align-items: center; font-size: var(--fs-small); }
 .bar-track { height: 10px; background: var(--chip); border-radius: 5px; overflow: hidden; }
 .bar-fill { height: 100%; background: var(--ink); border-radius: 5px; opacity: .78; }
-.bar-row .num { font: 500 13px var(--font-mono); text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
-.src-def { font-size: 14.5px; color: var(--muted); }
+.bar-row .num { font: 500 var(--fs-label) var(--font-mono); text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+.src-def { font-size: var(--fs-body); color: var(--muted); }
 .src-def b { color: var(--ink); font-weight: 600; }
 
 /* example browser */
 .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
-.tab { font: 600 15px/1 var(--font-body); padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.tab { font: 600 var(--fs-small)/1 var(--font-body); padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
 .tab[aria-selected="true"] { background: var(--c); border-color: var(--c); color: #fff; }
 .ex { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 26px; }
-.ex-label { font: 500 11.5px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
-.ex-q { font-size: 16px; line-height: 1.6; }
-.ex-q mark { background: color-mix(in srgb, var(--unm) 18%, transparent); color: inherit; padding: 1px 2px; border-radius: 3px; }
+.ex-label { font: 500 var(--fs-label)/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
+.ex-q { font-size: var(--fs-body); line-height: 1.6; }
 .turns { display: flex; flex-direction: column; gap: 10px; }
-.turn { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; font-size: 15px; line-height: 1.5; }
-.turn .tn { font: 600 12px/1 var(--font-mono); color: #fff; background: var(--cum); border-radius: 6px; height: 24px; display: grid; place-items: center; }
-.turn .adds { font: 500 11.5px var(--font-mono); color: var(--muted); }
-.cons { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.cons li { border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; font-size: 14.5px; line-height: 1.45; display: flex; flex-direction: column; gap: 6px; }
-.cons li.false { border-color: var(--unm); border-style: dashed; }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag { font: 500 11px/1 var(--font-mono); padding: 4px 7px; border-radius: 5px; background: var(--chip); color: var(--muted); }
-.tag.lvl-inferred { color: var(--imp); }
-.tag.field { color: var(--ink); }
-.answer { margin-top: 16px; border-radius: 10px; padding: 12px 14px; font-size: 15px; line-height: 1.45; background: var(--chip); }
+.turn { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; font-size: var(--fs-body); line-height: 1.5; }
+.turn .tn { font: 600 var(--fs-label)/1 var(--font-mono); color: #fff; background: var(--cum); border-radius: 6px; height: 24px; display: grid; place-items: center; }
+.turn .adds { font: 500 var(--fs-label) var(--font-mono); color: var(--muted); }
+.hl { background: #fff1a8; color: inherit; padding: 1px 3px; border-radius: 3px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hl.false { background: color-mix(in srgb, var(--unm) 20%, transparent); }
+.hn { display: inline-block; min-width: 1.35em; margin-right: 4px; padding: 0 4px; border-radius: 4px; background: var(--ink); color: #fff; font-size: 0.75em; font-weight: 600; line-height: 1.5; text-align: center; vertical-align: 0.1em; }
+.hl.false .hn, .cons li.false .hn { background: var(--unm); }
+.cons { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.cons li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: baseline; font-size: var(--fs-body); line-height: 1.45; }
+.cons li .hn { margin: 0; }
+.kv > span { display: block; }
+.kv i { font-style: normal; color: var(--muted); }
+.kv .sep { color: var(--line); margin: 0 6px; }
+.kv .lvl-inferred { color: var(--imp); }
+.kv small { display: block; color: var(--muted); font-size: inherit; }
+.answer { margin-top: 16px; border-radius: 10px; padding: 12px 14px; font-size: var(--fs-body); line-height: 1.45; background: var(--chip); }
 .answer .ok { color: var(--ok); font-weight: 600; }
 .answer .no { color: var(--unm); font-weight: 600; }
-.answer .near { color: var(--muted); font-size: 14px; display: block; margin-top: 6px; }
+.answer .near { color: var(--muted); font-size: var(--fs-body); display: block; margin-top: 6px; }
 
 /* results */
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-table.res { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 15px; }
+table.res { border-collapse: collapse; width: 100%; min-width: 640px; font-size: var(--fs-small); }
 .res th, .res td { padding: 9px 14px; text-align: right; font-variant-numeric: tabular-nums; }
 .res th:first-child, .res td:first-child { text-align: left; }
-.res thead th { font: 700 14px var(--font-display); border-bottom: 1px solid var(--line); white-space: nowrap; }
+.res thead th { font: 700 var(--fs-small) var(--font-display); border-bottom: 1px solid var(--line); white-space: nowrap; }
 .res tbody tr + tr td { border-top: 1px solid var(--line); }
-.res tr.grp td { font: 500 11.5px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); background: var(--bg); padding-block: 7px; }
-.res td.cell { font-family: var(--font-mono); font-size: 14px; position: relative; width: 17%; }
+.res tr.grp td { font: 500 var(--fs-label) var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); background: var(--bg); padding-block: 7px; }
+.res td.cell { font-family: var(--font-mono); font-size: var(--fs-small); position: relative; width: 17%; }
 .res td.cell span { position: relative; z-index: 1; }
 .res td.cell i { position: absolute; right: 8px; top: 50%; height: 22px; transform: translateY(-50%); border-radius: 4px; background: var(--c); opacity: .14; }
 .res td.best span { font-weight: 600; }
 .res td.na { color: var(--muted); }
 .res td.cell.c-std { --c: var(--std); } .res td.cell.c-imp { --c: var(--imp); } .res td.cell.c-cum { --c: var(--cum); } .res td.cell.c-unm { --c: var(--unm); }
-.note { font-size: 14px; color: var(--muted); }
+.note { font-size: var(--fs-body); color: var(--muted); }
 
 /* findings */
 .finding { display: flex; flex-direction: column; gap: 14px; }
-.finding .claim { font: 700 22px/1.25 var(--font-display); }
-.finding .claim .k { font: 500 12px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+.finding + .finding { margin-top: 40px; } /* space between the three search-dynamics findings */
+.finding .claim { font: 700 var(--fs-h3)/1.25 var(--font-display); }
+.finding .claim .k { font: 500 var(--fs-label)/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 8px; }
 .finding p { color: var(--muted); }
 .finding p.claim { color: var(--ink); }
 
@@ -163,9 +181,9 @@ table.res { border-collapse: collapse; width: 100%; min-width: 640px; font-size:
 
 /* code + bibtex */
 .code { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-.code pre { margin: 0; padding: 18px; overflow-x: auto; font: 400 14px/1.6 var(--font-mono); }
-.copy { position: absolute; top: 10px; right: 10px; font: 500 12px var(--font-mono); padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
-footer { color: var(--muted); font-size: 13.5px; text-align: center; padding-bottom: 32px; }
+.code pre { margin: 0; padding: 18px; overflow-x: auto; font: 400 var(--fs-small)/1.6 var(--font-code); }
+.copy { position: absolute; top: 10px; right: 10px; font: 500 var(--fs-label) var(--font-mono); padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
+footer { color: var(--muted); font-size: var(--fs-small); text-align: center; padding-bottom: 32px; }
 
 @media (max-width: 860px) {
   .settings { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -176,7 +194,8 @@ footer { color: var(--muted); font-size: 13.5px; text-align: center; padding-bot
   .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
 }
 @media (max-width: 520px) {
-  body { font-size: 16px; }
+  .affils .nw { white-space: normal; } /* long affiliations (KAIST) cannot fit one phone line */
+  body { font-size: 19px; }
   main { gap: 56px; }
   .settings { grid-template-columns: minmax(0, 1fr); }
   h2 { font-size: 25px; }
@@ -188,11 +207,12 @@ footer { color: var(--muted); font-size: 13.5px; text-align: center; padding-bot
 </head>
 <body>
 <main>
-  <header class="hero col" style="max-width: var(--wide)">
+  <header class="hero col" style="max-width: var(--page)">
     <h1 class="wordmark">CompLit</h1>
     <p class="title-tail">Scientific Literature Search Benchmarks Must Cover <span class="t-imp">Implicit</span>, <span class="t-cum">Cumulative</span>, and <span class="t-unm">Unmet</span> Needs</p>
-    <p class="authors">Dayoon Ko, Jihyuk Kim, Soyeong Jeong, Young-Jun Lee, Dahyun Lee, Juyeon Kim, Gunhee Kim, Moontae Lee, Kyungjae Lee</p>
-    <p class="venue">Preprint · 2026</p>
+    <p class="authors"><span class="nw">Dayoon Ko<sup>1</sup></span> <span class="nw">Jihyuk Kim<sup>2</sup></span> <span class="nw">Soyeong Jeong<sup>3</sup></span> <span class="nw">Young-Jun Lee<sup>4</sup></span> <span class="nw">Dahyun Lee<sup>2</sup></span> <span class="nw">Juyeon Kim<sup>2</sup></span><br><span class="nw">Gunhee Kim<sup>1</sup></span> <span class="nw">Moontae Lee<sup>2,5</sup></span> <span class="nw">Kyungjae Lee<sup>2,6</sup></span></p>
+    <p class="affils"><span class="nw"><sup>1</sup>Seoul National University</span> <span class="nw"><sup>2</sup>LG AI Research</span> <span class="nw"><sup>3</sup>Korea Advanced Institute of Science and Technology</span><br><span class="nw"><sup>4</sup>University of Minnesota</span> <span class="nw"><sup>5</sup>University of Illinois Chicago</span> <span class="nw"><sup>6</sup>University of Seoul</span></p>
+    <p class="contact"><a href="mailto:dayoon.ko@vision.snu.ac.kr">dayoon.ko@vision.snu.ac.kr</a></p>
     <nav class="links" aria-label="Resources"><span class="btn off" aria-disabled="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3zM9.5 2v3h3"/></svg>Paper <small>soon</small></span><a class="btn" href="https://github.com/dayoon-ko/CompLit" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 4 1.5 8l4 4 1-1-3-3 3-3zm5 0-1 1 3 3-3 3 1 1 4-4z"/></svg>Code</a><a class="btn" href="https://huggingface.co/datasets/dayoon/CompLit" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1C4.7 1 2 2 2 3.5v9C2 14 4.7 15 8 15s6-1 6-2.5v-9C14 2 11.3 1 8 1zm0 1.5c2.8 0 4.5.8 4.5 1S10.8 4.5 8 4.5 3.5 3.8 3.5 3.5 5.2 2.5 8 2.5z"/></svg>Dataset</a></nav>
   </header>
 
@@ -215,7 +235,7 @@ footer { color: var(--muted); font-size: 13.5px; text-align: center; padding-bot
   </section>
 
   <section class="wide section">
-    <div class="col section" style="margin: 0; max-width: var(--narrow)">
+    <div class="col section" style="margin: 0; max-width: var(--page)">
       <span class="eyebrow">Benchmark</span>
       <h2>One reference setting, three diagnostic settings</h2>
       <p class="lede">Each query combines several constraints that one paper satisfies jointly. A system returns one paper, or abstains.</p>
@@ -275,10 +295,6 @@ footer { color: var(--muted); font-size: 13.5px; text-align: center; padding-bot
       </table>
     </div>
     <p class="note">– marks settings a baseline does not support: corpus retrievers always return a paper, and only the four frontier agents hold a multi-turn conversation. DCI-Agent-Lite runs with GPT-5.4 nano. Bold marks the best score in each group.</p>
-    <figure>
-      <div class="paper-fig"><img src="static/img/effort_row_web.png" alt="Accuracy against mean tool calls for Codex, Claude, Kimi and DeepSeek in the four settings. All four cluster at 74 to 87 percent on Standard and spread out on the diagnostic settings." loading="lazy"></div>
-      <figcaption><b>Accuracy against search effort.</b> Mean accuracy of the frontier agents falls from 81.4% on Standard by 25.7, 35.1 and 52.6 points on Implicit, Cumulative and Unmet. Agents that search longer are not more accurate.</figcaption>
-    </figure>
   </section>
 
   <section class="wide section" id="breakdown">
@@ -354,7 +370,7 @@ print(row["paper"]["title"])   # gold paper</pre></div>
 </main>
 <footer class="col">CompLit · Figures from the paper.</footer>
 
-<script type="application/json" id="examples-data">{"standard": {"setting": "standard", "question": "I need a Python tool that implements a structured four-step causal inference workflow, taking domain knowledge and data to construct causal graphs and estimate effects. It should support standard identification strategies like backdoor, frontdoor, and instrumental variable adjustments, with built-in mechanisms to refute estimates and validate results before deployment. The exact setup I'm matching is a Microsoft Research paper.", "constraints": [{"source": "content", "value": "Python", "evidence_level": "explicit", "field": "programming_language"}, {"source": "content", "value": "Average causal effect for backdoor, frontdoor, instrumental variable, and other identification methods", "evidence_level": "paraphrased", "field": "supported_methods"}, {"source": "figural", "value": "four-step analysis pipeline for causal inference", "evidence_level": "paraphrased", "field": "pipeline"}, {"source": "figural", "value": "Model causal mechanisms, Identify the target estimand, Estimate causal effect, and Refute estimate", "evidence_level": "explicit", "field": "pipeline_stages"}, {"source": "metadata", "value": "2020", "evidence_level": null, "field": "year"}, {"source": "metadata", "value": "Microsoft Research", "evidence_level": null, "field": "affiliation"}], "paper": {"title": "DoWhy: An End-to-End Library for Causal Inference", "arxiv_id": "2011.04216", "year": 2020}, "survey": "Causality for Earth Science -- A Review on Time-series and Spatiotemporal Causality Methods"}, "implicit": {"setting": "implicit", "question": "I'm trying to identify parametric spatiotemporal dynamical models where the coefficients exhibit step changes, but I'm struggling with the sharp transitions in the loss landscape when tuning regularization. I need a procedure that handles these coefficient variations without requiring Bayesian uncertainty quantification, and I want to avoid methods that get bogged down in handling missing data. I also need an approach that is illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data', so I can focus on the core identification pipeline without that overhead.", "constraints": [{"source": "content", "value": "No", "evidence_level": "inferred", "field": "uncertainty_quantification"}, {"source": "content", "value": "No", "evidence_level": "inferred", "field": "missing_data_handling"}, {"source": "figural", "value": "exhibits a plateau of low loss followed by a sharp transition for parametric PDE identification", "evidence_level": null, "field": "loss_landscape"}, {"source": "figural", "value": "coefficients w_xx and w_yy exhibit a step change while vw_y remains constant", "evidence_level": null, "field": "coefficient_variation"}, {"source": "comparative", "value": "illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'", "evidence_level": "inferred", "field": "real_data_comparison"}], "paper": {"title": "Data-driven identification of parametric partial differential equations", "arxiv_id": "1806.00732", "year": 2018}, "survey": "A Review of Data-Driven Discovery for Dynamic Systems"}, "cumulative": {"setting": "cumulative", "question": "I'm trying to identify parametric spatiotemporal dynamical models where the coefficients exhibit step changes, but I'm struggling with the sharp transitions in the loss landscape when tuning regularization. I need a procedure that handles these coefficient variations without requiring Bayesian uncertainty quantification, and I want to avoid methods that get bogged down in handling missing data. I also need an approach that is illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data', so I can focus on the core identification pipeline without that overhead.", "constraints": [{"source": "content", "value": "No", "evidence_level": "inferred", "field": "uncertainty_quantification"}, {"source": "content", "value": "No", "evidence_level": "inferred", "field": "missing_data_handling"}, {"source": "figural", "value": "exhibits a plateau of low loss followed by a sharp transition for parametric PDE identification", "evidence_level": null, "field": "loss_landscape"}, {"source": "figural", "value": "coefficients w_xx and w_yy exhibit a step change while vw_y remains constant", "evidence_level": null, "field": "coefficient_variation"}, {"source": "comparative", "value": "illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'", "evidence_level": "inferred", "field": "real_data_comparison"}], "paper": {"title": "Data-driven identification of parametric partial differential equations", "arxiv_id": "1806.00732", "year": 2018}, "survey": "A Review of Data-Driven Discovery for Dynamic Systems", "turns": [{"turn": 1, "role": "opening", "utterance": "I’m looking for a reproducible, comparatively simple research route that can serve as the basis for my project. I want one paper whose design and evidence fit that role closely enough to be my main technical reference, so could you help me find it?", "revealed_constraints": []}, {"turn": 2, "role": "reveal", "utterance": "The first thing I have to verify is that abrupt changes in the governing structure remain visible rather than being averaged away. In particular, the coefficients w_xx and w_yy must exhibit a step change while vw_y remains constant, because my analysis has to distinguish shifting terms from stable ones.", "revealed_constraints": [3]}, {"turn": 3, "role": "reveal", "utterance": "Once that behavior is established, I need optimization evidence specifically for parametric PDE identification rather than just a summary score. The loss landscape should show a plateau of low loss followed by a sharp transition, so I can judge the usable region and where the behavior changes abruptly.", "revealed_constraints": [2]}, {"turn": 4, "role": "commit", "utterance": "For implementation, I need to keep auxiliary machinery and empirical overhead low enough that the core identification pipeline stays reproducible. The paper should have no uncertainty quantification and no missing-data handling, and it should be illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'; please commit to one paper now, or say plainly if nothing meets everything I’ve asked for.", "revealed_constraints": [0, 1, 4]}]}, "unmet": {"setting": "unmet", "question": "I need a Python tool that implements a structured four-step causal inference workflow, taking domain knowledge and data to construct causal graphs and estimate effects. The workflow should identify the target estimand before modeling the causal mechanisms. It should support standard identification strategies like backdoor, frontdoor, and instrumental variable adjustments, with built-in mechanisms to refute estimates and validate results before deployment.", "constraints": [{"source": "content", "value": "Python", "evidence_level": "explicit", "field": "programming_language"}, {"source": "content", "value": "Average causal effect for backdoor, frontdoor, instrumental variable, and other identification methods", "evidence_level": "paraphrased", "field": "supported_methods"}, {"source": "figural", "value": "four-step analysis pipeline for causal inference", "evidence_level": "paraphrased", "field": "pipeline"}, {"source": "figural", "value": "Model causal mechanisms, Identify the target estimand, Estimate causal effect, and Refute estimate", "evidence_level": "explicit", "field": "pipeline_stages"}], "paper": {"title": "DoWhy: An End-to-End Library for Causal Inference", "arxiv_id": "2011.04216", "year": 2020}, "survey": "Causality for Earth Science -- A Review on Time-series and Spatiotemporal Causality Methods", "unmet": {"added_constraint": "The workflow should identify the target estimand before modeling the causal mechanisms.", "demanded": "Identify the estimand before modeling causal mechanisms", "paper_actually_has": "The pipeline stages are: Model causal mechanisms, Identify the target estimand, Estimate causal effect, and Refute estimate.", "perturbation": "figure_claim_reversal"}}}</script>
+<script type="application/json" id="examples-data">{"standard": {"setting": "standard", "question": "I need a Python tool that implements a structured four-step causal inference workflow, taking domain knowledge and data to construct causal graphs and estimate effects. It should support standard identification strategies like backdoor, frontdoor, and instrumental variable adjustments, with built-in mechanisms to refute estimates and validate results before deployment. The exact setup I'm matching is a Microsoft Research paper.", "constraints": [{"source": "content", "value": "Python", "evidence_level": "explicit", "field": "programming_language", "spans": ["Python"]}, {"source": "content", "value": "Average causal effect for backdoor, frontdoor, instrumental variable, and other identification methods", "evidence_level": "paraphrased", "field": "supported_methods", "spans": ["standard identification strategies like backdoor, frontdoor, and instrumental variable adjustments"]}, {"source": "figural", "value": "four-step analysis pipeline for causal inference", "evidence_level": "paraphrased", "field": "pipeline", "spans": ["a structured four-step causal inference workflow"]}, {"source": "figural", "value": "Model causal mechanisms, Identify the target estimand, Estimate causal effect, and Refute estimate", "evidence_level": "explicit", "field": "pipeline_stages", "spans": ["construct causal graphs and estimate effects", "refute estimates and validate results"]}, {"source": "metadata", "value": "2020", "evidence_level": null, "field": "year", "spans": []}, {"source": "metadata", "value": "Microsoft Research", "evidence_level": null, "field": "affiliation", "spans": ["Microsoft Research"]}], "paper": {"title": "DoWhy: An End-to-End Library for Causal Inference", "arxiv_id": "2011.04216", "year": 2020}, "survey": "Causality for Earth Science -- A Review on Time-series and Spatiotemporal Causality Methods"}, "implicit": {"setting": "implicit", "question": "I'm trying to identify parametric spatiotemporal dynamical models where the coefficients exhibit step changes, but I'm struggling with the sharp transitions in the loss landscape when tuning regularization. I need a procedure that handles these coefficient variations without requiring Bayesian uncertainty quantification, and I want to avoid methods that get bogged down in handling missing data. I also need an approach that is illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data', so I can focus on the core identification pipeline without that overhead.", "constraints": [{"source": "content", "value": "No", "evidence_level": "inferred", "field": "uncertainty_quantification", "spans": ["without requiring Bayesian uncertainty quantification"]}, {"source": "content", "value": "No", "evidence_level": "inferred", "field": "missing_data_handling", "spans": ["avoid methods that get bogged down in handling missing data"]}, {"source": "figural", "value": "exhibits a plateau of low loss followed by a sharp transition for parametric PDE identification", "evidence_level": null, "field": "loss_landscape", "spans": ["sharp transitions in the loss landscape"]}, {"source": "figural", "value": "coefficients w_xx and w_yy exhibit a step change while vw_y remains constant", "evidence_level": null, "field": "coefficient_variation", "spans": ["the coefficients exhibit step changes"]}, {"source": "comparative", "value": "illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'", "evidence_level": "inferred", "field": "real_data_comparison", "spans": ["illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'"]}], "paper": {"title": "Data-driven identification of parametric partial differential equations", "arxiv_id": "1806.00732", "year": 2018}, "survey": "A Review of Data-Driven Discovery for Dynamic Systems"}, "cumulative": {"setting": "cumulative", "question": "I'm trying to identify parametric spatiotemporal dynamical models where the coefficients exhibit step changes, but I'm struggling with the sharp transitions in the loss landscape when tuning regularization. I need a procedure that handles these coefficient variations without requiring Bayesian uncertainty quantification, and I want to avoid methods that get bogged down in handling missing data. I also need an approach that is illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data', so I can focus on the core identification pipeline without that overhead.", "constraints": [{"source": "content", "value": "No", "evidence_level": "inferred", "field": "uncertainty_quantification", "spans": ["no uncertainty quantification"]}, {"source": "content", "value": "No", "evidence_level": "inferred", "field": "missing_data_handling", "spans": ["no missing-data handling"]}, {"source": "figural", "value": "exhibits a plateau of low loss followed by a sharp transition for parametric PDE identification", "evidence_level": null, "field": "loss_landscape", "spans": ["a plateau of low loss followed by a sharp transition"]}, {"source": "figural", "value": "coefficients w_xx and w_yy exhibit a step change while vw_y remains constant", "evidence_level": null, "field": "coefficient_variation", "spans": ["the coefficients w_xx and w_yy must exhibit a step change while vw_y remains constant"]}, {"source": "comparative", "value": "illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'", "evidence_level": "inferred", "field": "real_data_comparison", "spans": ["illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'"]}], "paper": {"title": "Data-driven identification of parametric partial differential equations", "arxiv_id": "1806.00732", "year": 2018}, "survey": "A Review of Data-Driven Discovery for Dynamic Systems", "turns": [{"turn": 1, "role": "opening", "utterance": "I’m looking for a reproducible, comparatively simple research route that can serve as the basis for my project. I want one paper whose design and evidence fit that role closely enough to be my main technical reference, so could you help me find it?", "revealed_constraints": []}, {"turn": 2, "role": "reveal", "utterance": "The first thing I have to verify is that abrupt changes in the governing structure remain visible rather than being averaged away. In particular, the coefficients w_xx and w_yy must exhibit a step change while vw_y remains constant, because my analysis has to distinguish shifting terms from stable ones.", "revealed_constraints": [3]}, {"turn": 3, "role": "reveal", "utterance": "Once that behavior is established, I need optimization evidence specifically for parametric PDE identification rather than just a summary score. The loss landscape should show a plateau of low loss followed by a sharp transition, so I can judge the usable region and where the behavior changes abruptly.", "revealed_constraints": [2]}, {"turn": 4, "role": "commit", "utterance": "For implementation, I need to keep auxiliary machinery and empirical overhead low enough that the core identification pipeline stays reproducible. The paper should have no uncertainty quantification and no missing-data handling, and it should be illustrated with less real data than 'DeepMoD: Deep learning for Model Discovery in noisy data'; please commit to one paper now, or say plainly if nothing meets everything I’ve asked for.", "revealed_constraints": [0, 1, 4]}]}, "unmet": {"setting": "unmet", "question": "I need a Python tool that implements a structured four-step causal inference workflow, taking domain knowledge and data to construct causal graphs and estimate effects. The workflow should identify the target estimand before modeling the causal mechanisms. It should support standard identification strategies like backdoor, frontdoor, and instrumental variable adjustments, with built-in mechanisms to refute estimates and validate results before deployment.", "constraints": [{"source": "content", "value": "Python", "evidence_level": "explicit", "field": "programming_language", "spans": ["Python"]}, {"source": "content", "value": "Average causal effect for backdoor, frontdoor, instrumental variable, and other identification methods", "evidence_level": "paraphrased", "field": "supported_methods", "spans": ["standard identification strategies like backdoor, frontdoor, and instrumental variable adjustments"]}, {"source": "figural", "value": "four-step analysis pipeline for causal inference", "evidence_level": "paraphrased", "field": "pipeline", "spans": ["a structured four-step causal inference workflow"]}, {"source": "figural", "value": "Model causal mechanisms, Identify the target estimand, Estimate causal effect, and Refute estimate", "evidence_level": "explicit", "field": "pipeline_stages", "spans": ["construct causal graphs and estimate effects", "refute estimates and validate results"]}], "paper": {"title": "DoWhy: An End-to-End Library for Causal Inference", "arxiv_id": "2011.04216", "year": 2020}, "survey": "Causality for Earth Science -- A Review on Time-series and Spatiotemporal Causality Methods", "unmet": {"added_constraint": "The workflow should identify the target estimand before modeling the causal mechanisms.", "demanded": "Identify the estimand before modeling causal mechanisms", "paper_actually_has": "The pipeline stages are: Model causal mechanisms, Identify the target estimand, Estimate causal effect, and Refute estimate.", "perturbation": "figure_claim_reversal"}}}</script>
 <script>
 (function () {
   var RESULTS = [
@@ -392,15 +408,33 @@ print(row["paper"]["title"])   # gold paper</pre></div>
 
   var EX = JSON.parse(document.getElementById("examples-data").textContent);
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
-  var LEVEL = { explicit: "explicit", paraphrased: "paraphrased", inferred: "inferred" };
+  // highlight each constraint's span(s) in a text; items = [{s: span, n: badge, cls: extra class}]
+  function highlight(text, items) {
+    var hits = [];
+    items.forEach(function (it) { var i = text.indexOf(it.s); if (i >= 0) hits.push({ a: i, b: i + it.s.length, n: it.n, cls: it.cls || "" }); });
+    hits.sort(function (x, y) { return x.a - y.a; });
+    var out = "", pos = 0;
+    hits.forEach(function (h) {
+      if (h.a < pos) return;
+      out += esc(text.slice(pos, h.a)) + '<mark class="hl ' + h.cls + '"><b class="hn">' + h.n + "</b>" + esc(text.slice(h.a, h.b)) + "</mark>";
+      pos = h.b;
+    });
+    return out + esc(text.slice(pos));
+  }
+  function spanItems(cs, only) {
+    var items = [];
+    cs.forEach(function (c, i) { if (only && only.indexOf(i) < 0) return; (c.spans || []).forEach(function (sp) { items.push({ s: sp, n: i + 1 }); }); });
+    return items;
+  }
   function consList(cs, extra) {
     var h = '<ul class="cons">';
     cs.forEach(function (c, i) {
-      h += '<li><span>' + esc(c.value) + '</span><span class="tags"><span class="tag field">' + esc(c.field) + '</span><span class="tag">' + c.source + "</span>" +
-        (c.evidence_level ? '<span class="tag lvl-' + c.evidence_level + '">' + LEVEL[c.evidence_level] + "</span>" : "") + "</span></li>";
+      var kv = "<span><i>survey_column:</i> " + esc(c.field) + "</span><span><i>type:</i> " + esc(c.source) +
+        (c.evidence_level ? '<span class="sep">|</span><i>label:</i> <span class="lvl-' + c.evidence_level + '">' + c.evidence_level + "</span>" : "") + "</span>";
+      if (!(c.spans && c.spans.length)) kv += "<small>value: " + esc(c.value) + " (not in the query text)</small>";
+      h += '<li><b class="hn">' + (i + 1) + '</b><span class="kv">' + kv + "</span></li>";
     });
-    if (extra) h += extra;
-    return h + "</ul>";
+    return h + (extra || "") + "</ul>";
   }
   function render(set) {
     var e = EX[set], left = "", right = "";
@@ -408,16 +442,16 @@ print(row["paper"]["title"])   # gold paper</pre></div>
     if (set === "cumulative") {
       left = '<div class="ex-label">Conversation · ' + e.turns.length + ' user turns</div><div class="turns">' + e.turns.map(function (t) {
         var adds = t.revealed_constraints.length ? '<div class="adds">reveals constraint ' + t.revealed_constraints.map(function (i) { return i + 1; }).join(", ") + "</div>" : '<div class="adds">opening, no constraint yet</div>';
-        return '<div class="turn"><span class="tn">T' + t.turn + "</span><div>" + esc(t.utterance) + adds + "</div></div>";
+        return '<div class="turn"><span class="tn">T' + t.turn + "</span><div>" + highlight(t.utterance, spanItems(e.constraints, t.revealed_constraints)) + adds + "</div></div>";
       }).join("") + "</div>";
     } else {
-      var q = esc(e.question);
-      if (set === "unmet") q = q.replace(esc(e.unmet.added_constraint), "<mark>" + esc(e.unmet.added_constraint) + "</mark>");
-      left = '<div class="ex-label">Query</div><p class="ex-q">' + q + "</p>";
+      var items = spanItems(e.constraints);
+      if (set === "unmet") items.push({ s: e.unmet.added_constraint, n: "+", cls: "false" });
+      left = '<div class="ex-label">Query</div><p class="ex-q">' + highlight(e.question, items) + "</p>";
     }
     var extra = "";
-    if (set === "unmet") extra = '<li class="false"><span>' + esc(e.unmet.demanded) + '</span><span class="tags"><span class="tag" style="color:var(--unm)">added false constraint</span></span></li>';
-    right = '<div class="ex-label">Constraints' + (set === "cumulative" ? " (numbered as revealed above)" : "") + "</div>" + consList(e.constraints, extra);
+    if (set === "unmet") extra = '<li class="false"><b class="hn">+</b><span class="kv"><i>added false constraint:</i> ' + esc(e.unmet.demanded) + "</span></li>";
+    right = '<div class="ex-label">Constraints' + (set === "cumulative" ? " (numbered as in the turns)" : "") + "</div>" + consList(e.constraints, extra);
     if (set === "unmet") {
       right += '<div class="answer"><span class="no">Correct answer: abstain.</span> No paper satisfies every constraint.<span class="near">Near-miss: ' + paper + ". It shows: " + esc(e.unmet.paper_actually_has) + "</span></div>";
     } else {
