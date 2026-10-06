@@ -3,7 +3,7 @@
 Run any LLM agent on **CompLit**, a scientific literature search benchmark, with [Inspect](https://inspect.aisi.org.uk/).
 The data loads from Hugging Face automatically: [`dayoon/CompLit`](https://huggingface.co/datasets/dayoon/CompLit).
 
-**Paper:** coming soon · **Project page:** coming soon
+**Paper:** coming soon · **Project page:** [dayoon-ko.github.io/CompLit](https://dayoon-ko.github.io/CompLit/)
 
 ---
 
