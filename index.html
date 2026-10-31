@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="CompLit asks whether we can trust an agent to find the paper we need, or to tell us that none exists. A literature search benchmark for implicit, cumulative, and unmet needs across all eight arXiv domains.">
 <meta property="og:title" content="CompLit">
-<meta property="og:description" content="Agents open the closest paper and accept it, even when they see what does not fit. A literature search benchmark for implicit, cumulative, and unmet needs across all eight arXiv domains.">
+<meta property="og:description" content=" A literature search benchmark for implicit, cumulative, and unmet needs across all eight arXiv domains.">
 <meta property="og:image" content="https://dayoon-ko.github.io/CompLit/static/video/teaser_poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230084ff'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='16' text-anchor='middle' fill='white'%3ECL%3C/text%3E%3C/svg%3E">
@@ -142,7 +142,7 @@ figcaption b { color: var(--ink); }
 .chart .num { font: 500 var(--fs-label)/1 var(--mono); font-variant-numeric: tabular-nums; width: 34px; text-align: right; }
 .chart .mean { grid-column: 1 / -1; display: grid; grid-template-columns: 132px repeat(4, minmax(0, 1fr)); gap: 0 16px; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; font-size: var(--fs-label); color: var(--muted); }
 .chart .mean b { color: var(--ink); }
-.chart .mean .dn { color: var(--c); font-weight: 700; }
+.chart .mean .dn { color: var(--muted); }
 
 /* case card (featured + browser) */
 .case { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
@@ -158,17 +158,17 @@ mark.false { background: color-mix(in srgb, var(--unm) 18%, #fff); color: inheri
 .agents { list-style: none; margin: 0; padding: 0; }
 .agents li { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 4px 16px; padding: 14px 20px; border-top: 1px solid var(--line); }
 .agents .who { font-weight: 700; font-size: var(--fs-small); line-height: 1.3; }
-.agents .v { display: inline-flex; align-items: center; gap: 5px; font-size: var(--fs-label); font-weight: 700; margin-top: 4px; }
-.agents .v.ok { color: var(--ok); } .agents .v.no { color: var(--no); }
+.agents .v { display: block; font-size: var(--fs-label); color: var(--muted); margin-top: 2px; }
+
 .agents .ans { font-size: var(--fs-small); line-height: 1.45; }
 .agents .meta { font-size: 12.5px; color: var(--muted); margin-left: 6px; white-space: nowrap; }
 .agents blockquote { margin: 6px 0 0; padding-left: 12px; border-left: 3px solid var(--line); font-size: var(--fs-small); line-height: 1.55; color: #33363f; }
-.agents blockquote.hot { border-left-color: var(--no); }
+
 .agents .aside { font-size: var(--fs-label); color: var(--muted); margin-top: 6px; display: block; }
 .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; font-size: var(--fs-label); margin-top: 6px; }
 .steps span { background: var(--chip); border-radius: 6px; padding: 4px 8px; line-height: 1.35; }
 .steps span i { font-style: normal; color: var(--muted); display: block; font-size: 12px; }
-.case-note { padding: 14px 20px; border-top: 1px solid var(--line); font-size: var(--fs-small); color: var(--muted); line-height: 1.55; background: var(--soft); }
+.case-note { padding: 14px 20px; border-top: 1px solid var(--line); font-size: var(--fs-small); color: var(--muted); line-height: 1.55; }
 .case-note b { color: var(--ink); }
 
 /* stat callout */
@@ -191,7 +191,7 @@ mark.false { background: color-mix(in srgb, var(--unm) 18%, #fff); color: inheri
 .ex { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
 .ex-head { padding: 16px 20px 0; display: flex; flex-direction: column; gap: 4px; }
 .ex-head h3 { font-size: var(--fs-h3); }
-.ex-head .why { font-size: var(--fs-small); color: var(--muted); }
+.ex-head .why { font-size: var(--fs-small); color: var(--ink); }
 .ex-body { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 22px; padding: 16px 20px 20px; }
 .ex-body .lbl { font-size: var(--fs-label); font-weight: 700; color: var(--muted); margin-bottom: 6px; display: block; }
 .ex-q { font-size: var(--fs-small); line-height: 1.62; }
@@ -202,7 +202,7 @@ mark.false { background: color-mix(in srgb, var(--unm) 18%, #fff); color: inheri
 .reqs li { font-size: var(--fs-small); line-height: 1.45; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; }
 .reqs .n { font: 700 12px/20px var(--font); background: var(--ink); color: #fff; border-radius: 5px; text-align: center; height: 20px; margin-top: 1px; }
 .reqs .src { display: block; font-size: 12.5px; color: var(--muted); }
-.reqs .src .inf { color: var(--imp); font-weight: 700; }
+.reqs .src .inf { color: var(--muted); }
 .reqs li.false .n { background: var(--unm); }
 .ex-ans { margin-top: 14px; background: var(--soft); border-radius: 10px; padding: 12px 14px; font-size: var(--fs-small); line-height: 1.5; }
 .ex-ans .ok { color: var(--ok); font-weight: 700; }
@@ -320,186 +320,129 @@ footer { color: var(--muted); font-size: var(--fs-label); text-align: center; }
       <a class="btn" href="https://github.com/dayoon-ko/CompLit" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 4 1.5 8l4 4 1-1-3-3 3-3zm5 0-1 1 3 3-3 3 1 1 4-4z"/></svg>Code</a>
       <a class="btn" href="https://huggingface.co/datasets/dayoon/CompLit" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1C4.7 1 2 2 2 3.5v9C2 14 4.7 15 8 15s6-1 6-2.5v-9C14 2 11.3 1 8 1zm0 1.5c2.8 0 4.5.8 4.5 1S10.8 4.5 8 4.5 3.5 3.8 3.5 3.5 5.2 2.5 8 2.5z"/></svg>Dataset</a>
     </nav>
-    <p class="thesis">Can we trust an agent to find the paper we need, <b>or to tell us that none exists?</b></p>
-    <p class="answer-line">Not yet. Agents often reach the right paper, or the closest one, and then misjudge it. <a href="#near-miss">See how&nbsp;↓</a></p>
   </header>
 
-  <!-- 1. The researcher's side -->
   <section class="col section" id="why">
-    <h2>Researchers search from what they have read toward what they have not</h2>
-    <p>Researchers now ask agents such as Codex or Claude Code to find the papers they need. The paper an agent returns shapes what a researcher builds on, what they cite, and whether they think their idea is new.</p>
-    <p>Benchmarks such as LitSearch, PaSa, and SAGE build each query from a target paper or a passage that cites it (compared in a table under “How we built it”). The query borrows the paper's words, arrives in one piece, and always has an answer. A researcher's need starts from the papers they have already read, so it differs in three ways.</p>
+    <h2>Researchers search from what they have read</h2>
+    <p>Researchers now ask agents such as Codex or Claude Code to find the papers they need. The paper an agent returns affects what a researcher builds on, what they cite, and whether they consider an idea new.</p>
+    <p>Benchmarks such as LitSearch, PaSa, and SAGE build each query from a target paper or a passage that cites it. Such a query reuses the paper's terms, states the whole request at once, and always has an answer. A researcher instead starts from the papers they have already read. They describe what they want in their own terms, which the paper they need may show only <span class="t-imp">implicitly</span>. Their requirements <span class="t-cum">accumulate</span> as they read. And what they look for may not exist yet, so the need is <span class="t-unm">unmet</span>.</p>
   </section>
-  <section class="wide section" aria-label="Three needs">
-    <div class="needs">
-      <div class="need c-imp"><div class="nm">Implicit <span>· infer</span></div><p>Researchers describe what they want in their own terms. The paper they need may show it only indirectly, so the agent has to infer it from the paper.</p></div>
-      <div class="need c-cum"><div class="nm">Cumulative <span>· reassess</span></div><p>Requirements grow as they read. A paper that fit an hour ago may not fit now, so the agent has to reassess its earlier answer.</p></div>
-      <div class="need c-unm"><div class="nm">Unmet <span>· abstain</span></div><p>What they want may not exist yet. The agent should then say so, because an empty spot in the literature can be an open direction.</p></div>
-    </div>
+  <section class="wide section" aria-label="Overview figure">
     <figure>
       <div class="paper-fig"><img src="static/img/fig_intro.png" alt="A medical imaging researcher starts from DeepSeek-R1-Zero and wants a reasoning method trained in-house with reinforcement learning. The agent must infer the in-house property from Paper A, reassess Paper A once the researcher adds CT and MRI, and abstain when no paper meets every need." loading="lazy"></div>
-      <figcaption class="col-cap">A medical imaging researcher cannot send patient scans outside the hospital. After reading how DeepSeek-R1-Zero learns to reason through reinforcement learning alone, they look for a method that does the same in-house. A matching paper describes how it trains but never says "in-house" (<span class="t-imp">implicit</span>). Reading that it tests only on X-ray, the researcher also asks for CT and MRI (<span class="t-cum">cumulative</span>). If no paper meets them all, the direction may still be open (<span class="t-unm">unmet</span>).</figcaption>
+      <figcaption class="col-cap">A medical imaging researcher cannot send patient scans outside the hospital. After reading how DeepSeek-R1-Zero learns to reason through reinforcement learning alone, they look for a method that does the same in-house. A matching paper describes how it trains but does not say "in-house" (implicit). Reading that it tests only on X-ray, the researcher also asks for CT and MRI (cumulative). If no paper meets them all, the direction may still be open (unmet).</figcaption>
     </figure>
   </section>
 
   <section class="wide section" aria-label="Overview video">
-    <span class="kicker" style="text-align:center">A short overview (1:26)</span>
     <div class="video-frame">
       <video controls playsinline preload="metadata" poster="static/video/teaser_poster.jpg" src="static/video/complit_teaser.mp4"></video>
     </div>
   </section>
 
-  <!-- 2. Headline result -->
   <section class="wide section" id="headline">
     <div class="col center">
-      <h2>Agents lose accuracy on all three needs, and the most on Unmet</h2>
-      <p style="margin-top: 14px">CompLit has a <b class="t-std">Standard</b> setting close to existing benchmarks: most requirements are stated, they arrive at once, and a match exists. Each diagnostic setting changes one of these. The four strongest agents we tested lose accuracy on every one.</p>
+      <h2>Results</h2>
+      <p style="margin-top: 14px">CompLit has a Standard setting close to existing benchmarks and one setting for each need: Implicit, Cumulative, and Unmet. The four strongest agents we tested score 74–87% on Standard and lower on each of the other three.</p>
     </div>
     <div class="chart" id="chart" aria-hidden="true"></div>
     <table class="sr-only" id="chart-table"><caption>Accuracy (%) of four agents on the four settings</caption></table>
-    <p class="note col center">Accuracy (%). On Unmet, only an abstention is correct; on Cumulative, the answer after the last turn is scored. 350 Standard, 220 Implicit, 220 Cumulative conversations, 300 Unmet queries. Claude Code and Codex run in their own harnesses with 900 seconds per query; Kimi and DeepSeek run under a 30-message limit and give a forced final answer at the limit. Full setup is under the all-baselines side note.</p>
+    <p class="note col center">Accuracy (%). On Unmet, only an abstention is correct. On Cumulative, the answer after the last turn is scored. Claude Code and Codex run in their own harnesses with 900 seconds per query; Kimi and DeepSeek run under a 30-message limit, with a forced final answer at the limit. All thirteen baselines are listed further below.</p>
   </section>
 
-  <!-- 3. The core finding -->
   <section class="col section" id="near-miss">
-    <span class="kicker unm">The finding we care about most</span>
-    <h2>Agents open the closest paper and accept it, even when they see what does not fit</h2>
-    <p>Each Unmet query starts from a query whose target paper agents already find. We add one requirement the target does not meet. The target is now a <b>near-miss</b>, and the right answer is to say that no paper qualifies.</p>
-    <p>Here is one such query, from physics. All four agents open the near-miss. All four notice that it ranks molecules by the highest score, not the lowest. Only one acts on it.</p>
-    <div class="case" id="featured" style="margin-block: 8px 20px"></div>
-    <div class="callout"><div class="big">&gt;90%</div><p>of Unmet queries: each of the four agents opens the near-miss within its first ten tool calls (searches or page reads). Yet they name a paper as a match in <b>47–82%</b> of queries, most often the near-miss itself.</p></div>
-  </section>
-  <section class="col section attach">
+    <h2>Agents accept near-misses</h2>
+    <p>Each Unmet query starts from a query whose target paper agents already find. We add one requirement the target does not meet, so the target becomes a near-miss and the correct answer is that no paper qualifies. Below is one such query from physics. All four agents open the near-miss and note that it ranks molecules by the highest score rather than the lowest. Codex abstains; the other three return the paper.</p>
+    <div class="case" id="featured"></div>
+    <p>Across all Unmet queries, each agent opens the near-miss within its first ten tool calls in over 90% of Unmet queries, yet names a paper as a match in 47–82% of them, usually the near-miss. A researcher who receives such an answer may take an open direction for one already explored.</p>
     <div class="verdict" id="verdict" aria-hidden="true"></div>
-    <table class="sr-only" id="verdict-table"><caption>Final verdicts on Unmet</caption></table>
-    <p class="note">Final answers on Unmet queries (%). Only an abstention is correct. Named another paper: Codex 2.7, Claude 11.7, Kimi 5.3, DeepSeek 6.7; DeepSeek gave no answer on the remaining 0.7%.</p>
-    <details class="more"><summary>See it over tool calls (figure from the paper)</summary>
-      <a class="paper-fig zoom" href="static/img/dynamics_no_match.png" target="_blank" rel="noopener"><img src="static/img/dynamics_no_match.png" alt="By tool call, the share of Unmet queries in which each agent has opened the near-miss, has given a final verdict, and has abstained correctly." loading="lazy"></a>
-      <p class="note">By tool call: opened the near-miss (dotted), gave a final verdict (red), abstained correctly (green); the shaded area is verdicts that name a paper although none qualifies. The later an agent decides, the less often it abstains. Click to enlarge.</p>
-    </details>
-    <p>A researcher who trusts such an answer would think the direction is already taken, even when the explanation mentions the gap. In the query above, the agents had read the evidence that it is not.</p>
+    <table class="sr-only" id="verdict-table"><caption>Final answers on Unmet</caption></table>
+    <p class="note">Final answers on Unmet queries (%). Named another paper: Codex 2.7, Claude 11.7, Kimi 5.3, DeepSeek 6.7. DeepSeek gave no answer on the remaining 0.7%.</p>
   </section>
 
   <section class="col section" id="same-gap">
-    <h2>The gap between finding a paper and judging it shows up in every setting</h2>
-    <div class="finding">
-      <h3><span class="t-imp">Implicit:</span> agents find the target paper less often, and lose more at each step after</h3>
-      <p>When every requirement must be inferred, fewer queries reach each step: the target paper is retrieved, then opened, then chosen. The loss grows along the way, from 12–27 points for retrieval to 19–37 points for the final answer. In <a href="#cases" data-case="implicit-q-bio">one biology query</a>, Claude's searches return the target paper ten times, and it never opens it.</p>
-    </div>
+    <h2>Implicit and Cumulative</h2>
+    <p>On Implicit, the target paper is retrieved, opened, and chosen less often than on Standard. Retrieval drops by 12–27 points and the final answer by 19–37, so more is lost after the paper is found. In one biology query, Claude's searches return the target paper ten times, and it does not open it.</p>
   </section>
-  <section class="col section attach">
-    <div class="mini" id="funnel" aria-hidden="true"></div>
-    <p class="note">Share of Implicit queries (%) in which the target paper was retrieved, opened, and chosen by the end of the search. The gray tick marks the same agent on Standard. Kimi's and DeepSeek's Chosen values include answers forced at the message limit (22 and 25 points). Read from the end values of the paper's figure below.</p>
-    <details class="more"><summary>See it over tool calls (figure from the paper)</summary>
+  <section class="wide section attach">
+    <figure>
       <a class="paper-fig zoom" href="static/img/dynamics_reason.png" target="_blank" rel="noopener"><img src="static/img/dynamics_reason.png" alt="By tool call, the share of Standard and Implicit queries where the target paper has been retrieved, read, and answered correctly, for four agents." loading="lazy"></a>
-      <p class="note">By tool call, the share of queries where the target paper has been retrieved (dotted), read (solid gray), and answered correctly (colored), on Standard and Implicit. Hatching marks answers that Kimi and DeepSeek give only when forced at the message limit. In the figure, “gold” is the target paper. Click to enlarge.</p>
-    </details>
+      <figcaption class="col-cap">By tool call, the share of queries in which the target paper (“gold”) has been retrieved (dotted), read (solid gray), and answered correctly (colored). Hatching marks answers Kimi and DeepSeek give only when forced at the message limit.</figcaption>
+    </figure>
   </section>
   <section class="col section">
-    <div class="finding">
-      <h3><span class="t-cum">Cumulative:</span> a wrong early pick stays unless the agent judges it again</h3>
-      <p>Codex picks a wrong paper far less often than the others: 41% of its conversations ever do, against 66–74%. Claude often picks one, and recovers from more of them than any other agent: in <a href="#cases" data-case="cumulative-eess">one electrical engineering (EESS) conversation</a> it commits to RadioDUN, opens the target paper at the last turn, and writes, "This resolves it — and it overturns my earlier RadioDUN pick, which was wrong for these mechanics." Kimi and DeepSeek recover from few: in 62% of their conversations they pick a wrong paper and never reach the target. So Codex and Claude, 2 points apart on Implicit, end 11 points apart.</p>
-    </div>
+    <p>On Cumulative, Codex picks a wrong paper in 41% of conversations, against 66–74% for the others. Claude often picks one but recovers from more of them than the other agents; in one electrical engineering conversation it commits to RadioDUN, opens the target paper at the last turn, and writes, "This resolves it — and it overturns my earlier RadioDUN pick, which was wrong for these mechanics." Kimi and DeepSeek rarely recover. Codex and Claude, 2 points apart on Implicit, end 11 points apart.</p>
   </section>
-  <section class="col section attach">
-    <div class="mini" id="recover" aria-hidden="true"></div>
-    <p class="note">Share of Cumulative conversations (%) in which the agent picked a wrong paper at some turn, split by whether it later ended on the target paper (Codex recovered in 3.6%). From the paper's appendix table.</p>
-    <details class="more"><summary>See it over turns (figure from the paper)</summary>
+  <section class="wide section attach">
+    <figure>
       <a class="paper-fig zoom" href="static/img/dynamics_cum.png" target="_blank" rel="noopener"><img src="static/img/dynamics_cum.png" alt="By user turn, the share of conversations whose current answer is the target paper or another paper, and the share that has ever chosen another paper." loading="lazy"></a>
-      <p class="note">By user turn, the share of conversations whose current answer is the target paper (colored) or another paper (solid gray), and the share that has ever chosen another paper (dotted). The shaded band is wrong answers the agent later left. In the figure, “gold” is the target paper. Click to enlarge.</p>
-    </details>
+      <figcaption class="col-cap">By user turn, the share of conversations whose current answer is the target paper (colored) or another paper (solid gray), and the share that has ever chosen another paper (dotted).</figcaption>
+    </figure>
   </section>
 
-  <!-- case browser -->
   <section class="col section" id="cases">
-    <h2>Agents fail the same query for different reasons</h2>
-    <p class="lede">Seven more queries, each run by all four agents, with every agent's answer and, where it has one, its own words. Some never open the target paper, some open it and set the mismatch aside, and some commit early and never look again.</p>
+    <h2>More cases</h2>
+    <p class="lede">Seven more queries from six domains, with each agent's answer and an excerpt of its reasoning. We picked them to show how agents differ; they are not a random sample.</p>
     <div class="tabs" id="case-tabs" aria-label="Agent cases"></div>
     <div class="case" id="case-view" aria-live="polite"></div>
-    <p class="note">Chosen to show how agents differ, among queries where every wrong answer clearly breaks a requirement; not a random sample. Excerpts are verbatim.</p>
   </section>
 
-  <!-- construction -->
-  <section class="col section" id="construction">
-    <div class="side">
-      <span class="kicker">How we built it</span>
-      <h2>Requirements come from survey comparison tables</h2>
-    </div>
-    <p>Survey authors compare the papers they cover on the distinctions that matter in their field. We turn those table cells into requirements, add claims read from each target's figures and its arXiv record, and write each query around a research intent. We checked every requirement and every query by hand, and an automatic check removes any query that another paper among the top 100 retrieved candidates also satisfies. The source surveys are removed from the search corpus; open-web agents can still reach them, but open one in only 3.8% of runs, and those runs are not more accurate.</p>
-    <p>Unmet queries start from queries whose target paper three reference systems (Harness-1, DeepSeek-V4-Pro, and GLM-5.2) all find. We add one false requirement by swapping a value in the survey's table or reversing a claim read from one of the target's figures, so that the target contradicts it or never supports it.</p>
-    <div class="stats">
-      <div class="stat"><span class="v">870</span><span class="k">single-turn queries</span></div>
-      <div class="stat"><span class="v">220</span><span class="k">conversations</span></div>
-      <div class="stat"><span class="v">8</span><span class="k">arXiv domains</span></div>
-      <div class="stat"><span class="v">193</span><span class="k">source surveys</span></div>
-    </div>
-    <p class="note">Each single-turn query has 6.4 requirements on average, not counting the added Unmet clause: 2,520 from survey table cells, 1,865 read from the target's figures, 895 contrasts with another paper in the same table, and 330 from the arXiv record (year, venue, affiliation). Contrasts read like "uses a different data set than ‘…’", because they come from the survey's table.</p>
-    <div class="table-wrap">
-      <table class="cmp">
-        <thead><tr><th>Benchmark</th><th><span class="lg">Requirements that must be inferred</span><span class="sh">Inferred</span></th><th><span class="lg">Requirements that grow over turns</span><span class="sh">Grows</span></th><th><span class="lg">Queries with no answer</span><span class="sh">No answer</span></th><th><span class="lg">arXiv domains</span><span class="sh">Domains</span></th></tr></thead>
-        <tbody>
-          <tr><td>LitSearch</td><td class="x">–</td><td class="x">–</td><td class="x">–</td><td>1</td></tr>
-          <tr><td>PaSa</td><td class="x">–</td><td class="x">–</td><td class="x">–</td><td>1</td></tr>
-          <tr><td>PaperFindingBench</td><td class="x">–</td><td class="x">–</td><td class="x">–</td><td>1</td></tr>
-          <tr><td>PaSaMaster-Bench</td><td class="x">–</td><td class="x">–</td><td class="x">–</td><td>6</td></tr>
-          <tr><td>SAGE</td><td class="x">–</td><td class="x">–</td><td class="x">–</td><td>4</td></tr>
-          <tr><td>AutoResearchBench</td><td class="x">–</td><td class="x">–</td><td class="y">✓</td><td>1</td></tr>
-          <tr class="us"><td>CompLit</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td>8</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="note">How CompLit differs from earlier literature search benchmarks (Table 1 of the paper). AutoResearchBench has queries with no answer in its Deep split only.</p>
-  </section>
-
-  <!-- 4. Domain examples -->
   <section class="col section" id="examples">
-    <h2>Needs come from all eight arXiv domains</h2>
-    <p>Because the requirements come from each field's own surveys, they are the distinctions researchers there already care about. Browse the queries we found most telling in each domain.</p>
+    <h2>Examples from all eight domains</h2>
+    <p>Each query's requirements come from a comparison table in a survey of that field.</p>
     <div class="tabrow"><span class="lab" id="dom-lab">Domain</span><div class="tabs" id="dom-tabs" aria-labelledby="dom-lab"></div></div>
     <div class="tabrow"><span class="lab" id="set-lab">Setting</span><div class="tabs" id="set-tabs" aria-labelledby="set-lab"></div></div>
     <div class="ex" id="ex-view" aria-live="polite"></div>
   </section>
 
-  <!-- side note: domain and year -->
-  <section class="col section" id="fields">
-    <div class="side">
-      <span class="kicker">Side note</span>
-      <h2>No agent leads in every field</h2>
+  <section class="col section" id="construction">
+    <h2>How CompLit is built</h2>
+    <p>Survey authors compare the papers they cover on the distinctions that matter in their field. We turn those table cells into requirements, add claims read from each target's figures and its arXiv record, and write each query around a research intent. We checked every requirement and query by hand, and an automatic check removes any query that another paper among the top 100 retrieved candidates also satisfies. CompLit has 870 single-turn queries and 220 conversations from 193 surveys across all eight arXiv domains.</p>
+    <p>Unmet queries start from queries whose target three reference systems (Harness-1, DeepSeek-V4-Pro, and GLM-5.2) all find. The added requirement swaps a value in the survey's table or reverses a claim read from one of the target's figures. The source surveys are removed from the search corpus; open-web agents open one in 3.8% of runs, and those runs are not more accurate.</p>
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead><tr><th>Benchmark</th><th><span class="lg">Inferred requirements</span><span class="sh">Inferred</span></th><th><span class="lg">Requirements over turns</span><span class="sh">Turns</span></th><th><span class="lg">Queries with no answer</span><span class="sh">No answer</span></th><th><span class="lg">arXiv domains</span><span class="sh">Domains</span></th></tr></thead>
+        <tbody>
+          <tr><td>LitSearch</td><td>–</td><td>–</td><td>–</td><td>1</td></tr>
+          <tr><td>PaSa</td><td>–</td><td>–</td><td>–</td><td>1</td></tr>
+          <tr><td>PaperFindingBench</td><td>–</td><td>–</td><td>–</td><td>1</td></tr>
+          <tr><td>PaSaMaster-Bench</td><td>–</td><td>–</td><td>–</td><td>6</td></tr>
+          <tr><td>SAGE</td><td>–</td><td>–</td><td>–</td><td>4</td></tr>
+          <tr><td>AutoResearchBench</td><td>–</td><td>–</td><td>yes</td><td>1</td></tr>
+          <tr><td>CompLit</td><td>yes</td><td>yes</td><td>yes</td><td>8</td></tr>
+        </tbody>
+      </table>
     </div>
-    <p>Because CompLit covers all eight arXiv domains and papers through 2026, it shows where each agent is weaker. On Standard, Codex leads in physics, EESS, and mathematics, and Claude in statistics and biology. All four are more accurate on papers from 2019–23, taken together, than on older or more recent ones.</p>
-    <div class="heat-wrap"><table class="heat" id="heat" aria-label="Accuracy on Standard by domain and publication year"></table></div>
-    <p class="note">Accuracy (%) on Standard, by the target's domain and publication year. Darker cells are higher; outlined cells are the best in each row (ties are both outlined). n is the number of queries, so one query moves a cell by 1.2–2.5 points. Finance and economics are pooled.</p>
+    <p class="note">From Table 1 of the paper. AutoResearchBench has queries with no answer in its Deep split only.</p>
   </section>
 
-  <!-- side note: all baselines -->
+  <section class="col section" id="fields">
+    <h2>Accuracy by domain and year</h2>
+    <p>On Standard, Codex leads in physics, EESS, and mathematics, and Claude in statistics and biology. All four agents are more accurate on papers from 2019–23, taken together, than on older or more recent ones.</p>
+    <div class="heat-wrap"><table class="heat" id="heat" aria-label="Accuracy on Standard by domain and publication year"></table></div>
+    <p class="note">Accuracy (%) on Standard. n is the number of queries, so one query moves a cell by 1.2–2.5 points. Outlined: best in the row. Finance and economics are pooled.</p>
+  </section>
+
   <section class="col section" id="results">
-    <div class="side">
-      <span class="kicker">Side note</span>
-      <h2>Agents that read papers lose less than the reranked retriever on Implicit</h2>
-    </div>
-    <p>All thirteen baselines drop from Standard to Implicit. The reranked retriever drops the most, by 40 points. The two corpus search agents search the same index but read the papers, and drop 27–30, which suggests that reading helps.</p>
+    <h2>All baselines</h2>
+    <p>All thirteen baselines drop from Standard to Implicit. The reranked retriever drops by 40 points; the two corpus search agents, which search the same index but read the papers, drop by 27–30.</p>
     <div class="table-wrap">
       <table class="res" id="res">
         <thead><tr><th>Baseline</th><th class="t-std"><span class="lg">Standard</span><span class="sh">Std.</span></th><th class="t-imp"><span class="lg">Implicit</span><span class="sh">Impl.</span></th><th class="t-cum"><span class="lg">Cumulative</span><span class="sh">Cum.</span></th><th class="t-unm">Unmet</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
-    <p class="note">Accuracy (%). Corpus retrieval and corpus search agents work over a fixed index of 2.95M arXiv papers; web search agents search the open web. "–": not supported; corpus retrievers always return a paper, and only the four strongest agents hold a multi-turn conversation. DCI-Agent-Lite runs with GPT-5.4 nano. Underlined: best in each group.</p>
-    <p class="note">Setup of the four strongest agents: Claude Code and Codex CLI run in their own web search harnesses, with arXiv search and a paper reader added, no turn limit, and 900 seconds per query. Kimi and DeepSeek run in inspect_evals with arXiv search, web search, and the same paper reader, under a 30-message limit; a run that reaches it gives a forced final answer, which is scored. A prediction is correct if it names the target paper. All runs searched the live web on August 12–24, 2026.</p>
+    <p class="note">Accuracy (%). Corpus baselines search a fixed index of 2.95M arXiv papers; web search agents search the open web. "–": not supported. DCI-Agent-Lite runs with GPT-5.4 nano. Underlined: best in each group. Claude Code and Codex CLI use their own web search plus arXiv search and a paper reader, with no turn limit and 900 seconds per query; Kimi and DeepSeek use arXiv search, web search, and the paper reader in inspect_evals, under a 30-message limit. All runs searched the live web on August 12–24, 2026.</p>
   </section>
 
-  <!-- vision -->
   <section class="col section" id="next">
-    <h2>A search agent should show what does not fit, not explain it away</h2>
-    <p>Much of literature search is fine to hand off. Judging whether a paper meets a need, and noticing when none does, is a skill researchers build over years of reading in a field. In the physics query above, three agents read the mismatch and called it a paraphrase error, a misremembering, or a sign flip. A researcher who sees only the final answer never gets to judge it, and never gets the practice.</p>
-    <p>We see two next steps. One is a better harness for literature search (the tools and instructions around the model), guided by where each agent fails and which papers it finds hard. The other is a model of a field distilled from its surveys, so that an agent knows how to search the field and check a requirement before the search begins. Doing well on CompLit is a step toward agents we can trust to find the paper we need, or to tell us that none exists.</p>
+    <h2>Outlook</h2>
+    <p>Judging whether a paper meets a need, and noticing when none does, is something researchers learn over years of reading in a field. An agent that returns a near-miss without pointing out what it lacks leaves the researcher no chance to make that judgment. We see two directions for future work: a harness for literature search, guided by where each agent fails and which papers it finds hard, and a model of a field distilled from its surveys, so that an agent knows how to search the field and check a requirement before the search begins.</p>
   </section>
 
-
-  <!-- data -->
   <section class="col section" id="data">
     <h2>Use the data</h2>
-    <p>Four configurations, one test split each. Every row has the query, its requirements with evidence, the target paper (the near-miss on Unmet), and the source survey.</p>
+    <p>Four configurations, one test split each. Every row has the query, its requirements with evidence, the target paper (the near-miss on Unmet), and the source survey. Return one paper title per query, or an empty title to abstain. On Cumulative, a gpt-5.4-mini user simulator at temperature 0 delivers fixed user turns. The evaluation code is in the <a href="https://github.com/dayoon-ko/CompLit" target="_blank" rel="noopener">repository</a>.</p>
     <div class="code"><button class="copy" data-copy="code-load">Copy</button><pre id="code-load"><span class="c-kw">from</span> datasets <span class="c-kw">import</span> load_dataset
 
 <span class="c-com"># standard · implicit · cumulative · unmet</span>
@@ -507,11 +450,6 @@ ds = load_dataset(<span class="c-str">"dayoon/CompLit"</span>, <span class="c-st
 row = ds[0]
 print(row[<span class="c-str">"question"</span>])
 print(row[<span class="c-str">"paper"</span>][<span class="c-str">"title"</span>])  <span class="c-com"># target paper</span></pre></div>
-    <ul class="howto">
-      <li>Return one paper title per query, or an empty title to abstain. A title that matches the target paper is correct; on Unmet, only an empty title is correct.</li>
-      <li>On Cumulative, a gpt-5.4-mini user simulator at temperature 0 delivers fixed user turns, and the answer after the last turn is scored.</li>
-      <li>Corpus-based systems search 2.95M full-text arXiv papers from S2ORC v2, with surveys removed and every target kept. The evaluation code is in the <a href="https://github.com/dayoon-ko/CompLit" target="_blank" rel="noopener">repository</a>.</li>
-    </ul>
   </section>
 
   <section class="col section" id="cite">
@@ -526,6 +464,7 @@ print(row[<span class="c-str">"paper"</span>][<span class="c-str">"title"</span>
 
   <footer class="col">CompLit · Figures from the paper · Data under CC BY 4.0</footer>
 </main>
+
 
 
 <script type="application/json" id="cases-data">[{"setting": "unmet", "domain": "physics", "featured": true, "query": "I'm benchmarking a new generative model and need the most directly comparable prior work that uses recurrent networks to generate molecules from SMILES strings on the ZINC dataset. I specifically need the approach that trains on around 250,000 examples with a practical vocabulary of 64 tokens, since my own setup requires matching that scale to avoid distribution shifts. The method should employ an autoregressive generation strategy rather than variational or adversarial approaches, and I need to see how it integrates Monte Carlo Tree Search with RNN-based rollouts for the simulation step. For consistency with my benchmark, I need the reported molecules to be ranked by minimizing J, with the top molecule having the lowest objective score. This baseline must construct molecules through a search tree where children are sampled from the recurrent network multiple times during expansion, then completed via rollout to terminal nodes for reward computation.", "key": "For consistency with my benchmark, I need the reported molecules to be ranked by minimizing J, with the top molecule having the lowest objective score.", "gold": "<a href=\"https://arxiv.org/abs/1710.00616\" target=\"_blank\" rel=\"noopener\">ChemTS: an efficient python library for de novo molecular generation<\/a> (2017). It meets every other requirement, but it states that “effectiveness of each method is quantified by the maximum score J among all generated molecules,” and lists its best molecules by highest J.", "agents": [{"name": "Codex", "ok": true, "answer": "Abstains", "calls": 5, "opened": true, "quote": "However, ChemTS explicitly maximizes J; its best molecule has the highest score (6.56), not the lowest. Therefore no paper satisfies all stated requirements."}, {"name": "Claude", "ok": false, "answer": "Returns the near-miss", "calls": 6, "opened": true, "hot": true, "quote": "The lone mismatch … ‘minimizing J / lowest objective’ vs. ChemTS maximizing J … is an inaccuracy in the paraphrase"}, {"name": "Kimi", "ok": false, "answer": "Returns the near-miss", "calls": 7, "opened": true, "hot": true, "quote": "the paper actually maximizes J (penalized logP-style reward; the top molecule has the highest J = 6.56), whereas the researcher recalled minimizing J"}, {"name": "DeepSeek", "ok": false, "answer": "Returns the near-miss", "calls": 16, "opened": true, "hot": true, "quote": "The only minor terminological discrepancy is “minimizing J” versus the paper's maximization framing, which is a trivial sign flip for benchmarking purposes."}], "note": "The highlighted clause is the one we added. Claude, Kimi, and DeepSeek each see that ChemTS maximizes J, then return it anyway, calling the clause an inaccurate paraphrase, a misremembering, or a sign flip. None of the four answers was forced by the message limit."}, {"setting": "unmet", "domain": "math", "query": "I'm trying to identify differential equation structures from frequency response data, but my current approach struggles when features have vastly different scales. I need the method that uses Fourier expansions with an l0 sparsity constraint and trims groups based on core-region energy to handle these scale variations without cross-validation failing in noisy settings. After core-energy group trimming has screened the terms, I need the final choice among surviving equations to rely solely on the Akaike information criterion. The approach should demonstrate this on the KdV equation to show it works in practice.", "key": "After core-energy group trimming has screened the terms, I need the final choice among surviving equations to rely solely on the Akaike information criterion.", "gold": "<a href=\"https://arxiv.org/abs/2311.16608\" target=\"_blank\" rel=\"noopener\">Fourier Features for Identifying Differential Equations (FourierIdent)<\/a> (2023), which picks its final equation “by minimizing the energy E1 + E2” and mentions Akaike only in its history of the field. Its journal version selects the same way.", "agents": [{"name": "Codex", "ok": true, "answer": "Abstains", "calls": 9, "opened": true, "quote": "its surviving models are selected using a bespoke energy combining core-region fitting residual and coefficient stability, rather than solely the Akaike information criterion."}, {"name": "Claude", "ok": false, "answer": "Returns the near-miss", "calls": 20, "opened": true, "hot": true, "quote": "The only detail I could not confirm on the arXiv v1 is that final selection uses solely the Akaike information criterion (v1 uses a residual+stability energy); this most likely reflects the substantially revised journal version …"}, {"name": "Kimi", "ok": false, "answer": "Returns the near-miss (forced at the message limit)", "calls": 18, "opened": true, "quote": "… with a new core-region-based energy for coefficient identification, and selecting the final equation purely by AIC instead of cross-validation"}, {"name": "DeepSeek", "ok": false, "answer": "Returns the near-miss (forced at the message limit)", "calls": 19, "opened": true, "quote": "The full text discusses model selection via AIC after group trimming, and the method is tested on the KdV equation among others. This paper is the clear match."}], "note": "Claude sees the mismatch and appeals to a journal version, which selects the same way. Kimi and DeepSeek, forced to answer at the message limit, state that the paper uses AIC, although the paper text they received ended before its selection step."}, {"setting": "standard", "domain": "physics", "query": "I need a study on plastic deformation in 2D crystalline and glassy materials that uses continuous modeling to track dynamical evolution on a periodic potential, since I'm looking for how collective effects manifest in 2D systems rather than threshold-based or activated descriptions. The work must specifically address the dipolar propagator arising from opposite dislocations, because I'm trying to understand how these long-range elastic interactions shape yielding in amorphous and crystalline solids without relying on stress thresholds or activated event durations.", "key": "The work must specifically address the dipolar propagator arising from opposite dislocations", "gold": "<a href=\"https://arxiv.org/abs/cond-mat/0304209\" target=\"_blank\" rel=\"noopener\">Plastic Flow in Two-Dimensional Solids<\/a> (2003), whose slips are “a pair of edge dislocations with opposite Burger vectors (dislocation dipoles).”", "agents": [{"name": "Codex", "ok": true, "answer": "Target paper", "calls": 6, "opened": true, "quote": "its elementary slip consists of two edge dislocations with opposite Burgers vectors, producing the specified long-range dipolar elastic response."}, {"name": "Claude", "ok": false, "answer": "<i>Self-induced marginality in plastically deformed crystals<\/i> (2025)", "calls": 48, "opened": false, "hot": true, "quote": "The one unverified constraint is the literal phrase ‘dipolar propagator,’ which the paper does not use …, so confidence is tempered."}, {"name": "Kimi", "ok": false, "answer": "Bulatov and Argon (1994; not on arXiv), forced at the message limit", "calls": 22, "opened": false, "quote": "a continuous local plastic variable evolves in a periodic potential, long-range coupling is represented by the elastic propagator of two opposite dislocations …"}, {"name": "DeepSeek", "ok": true, "answer": "Target paper", "calls": 8, "opened": true, "quote": "the elastic energy density being a periodic function of shear and tetragonal strains …, and with slips consisting of two edge dislocations of opposite Burgers vectors giving a dipolar propagator."}], "note": "Codex and DeepSeek open the target paper and confirm the one distinctive requirement. Claude passes over the target paper in one search result and settles on a paper that never mentions dislocation dipoles. Kimi credits a 1994 model with the target paper's features, though a review files that model under the activated descriptions the query rules out."}, {"setting": "standard", "domain": "stat", "query": "I'm working with sparse networks where degree heterogeneity is significant, and I need a spectral embedding approach that remains stable when the average degree grows just above a polylogarithmic threshold. The method should handle degree-corrected structures where community members lie on hyperplanes in latent space, and produce embeddings suitable for downstream clustering under these sparse conditions. I need the work that establishes asymptotic normality for rows of scaled eigenvectors. This approach should differ from the one in ‘Two-sample Test of Community Memberships of Weighted Stochastic Block Models’ in both its sparsity condition and model specification, and it should also use a different sparsity condition than ‘Asymptotic Theory of Eigenvectors for Random Matrices with Diverging Spikes’. The pipeline should show how degree-corrected latent positions from the same community lie on a one-dimensional hyperplane, outputting a d-1-dimensional embedding that feeds into clustering algorithms like k-means or Gaussian mixture models.", "key": "I need the work that establishes asymptotic normality for rows of scaled eigenvectors.", "gold": "<a href=\"https://arxiv.org/abs/2105.00987\" target=\"_blank\" rel=\"noopener\">Spectral clustering under degree heterogeneity: a case for the random walk Laplacian<\/a> (2021), which proves a central limit theorem for rows of the random-walk-Laplacian embedding.", "agents": [{"name": "Codex", "ok": true, "answer": "Target paper", "calls": 11, "opened": true, "quote": "it proves asymptotically Gaussian row-wise errors for random-walk Laplacian spectral embeddings under a sparse generalized random dot-product graph …"}, {"name": "Claude", "ok": true, "answer": "Target paper", "calls": 35, "opened": true, "quote": "It establishes a central limit theorem (asymptotic normality) for the rows of the scaled eigenvectors of the random walk Laplacian, handles significant degree heterogeneity …"}, {"name": "Kimi", "ok": false, "answer": "“The Two-Sample Testing Problem for Degree-Corrected Block Models” (2112.09905), forced at the message limit", "calls": 20, "opened": false, "quote": "This matches Joshua Agterberg's ‘The Two-Sample Testing Problem for Degree-Corrected Block Models’ (arXiv:2112.09905) …", "aside": "We found no paper with this title, and the id belongs to a laser-physics paper."}, {"name": "DeepSeek", "ok": false, "answer": "No answer, forced at the message limit", "calls": 20, "opened": false, "quote": "This is the key insight of SCORE. In SCORE, for K communities, the rows of the K leading eigenvectors of the adjacency matrix lie on K lines (1D hyperplanes) through the origin.", "aside": "Said while searching."}], "note": "Kimi and DeepSeek both see the target paper in their search results, then follow SCORE, a related method whose communities also lie on lines, and never open it."}, {"setting": "implicit", "domain": "q-bio", "query": "I'm modeling an infectious disease outbreak and need a method that captures the S-shaped trajectory as case counts rise and then plateau. The extra shape parameter is what lets the curve flex to fit different outbreak patterns, so I'm after a four-parameter sigmoidal model. I also want a deterministic formulation so I can get consistent forecasts without simulation noise, and I need the whole epidemic trajectory described by a single growth equation rather than a patchwork of phases. The method should include a linear final-trend adjustment for cases where the plateau isn't flat, like some countries' outbreaks. I'm not looking for a broad model comparison; I need the study that commits to a focused growth curve approach, employing fewer model types than ‘Rational evaluation of various epidemic models based on the COVID-19 data of China’.", "key": "The method should include a linear final-trend adjustment for cases where the plateau isn't flat", "gold": "<a href=\"https://arxiv.org/abs/2004.02406\" target=\"_blank\" rel=\"noopener\">Using generalized logistics regression to forecast population infected by Covid-19<\/a> (2020), which fits M/(1+e<sup>−at+b<\/sup>)<sup>α<\/sup> to cumulative cases and, for South Korea, adds a linear term: (M+ct)/(1+e<sup>−at+b<\/sup>)<sup>α<\/sup>.", "agents": [{"name": "Codex", "ok": false, "answer": "<i>Nowcasting COVID-19 incidence indicators during the Italian first outbreak<\/i> (2020)", "calls": 15, "opened": false, "hot": true, "quote": "The paper focuses on a Richards generalized logistic growth curve … supports deterministic point forecasts via maximum-likelihood estimates, and modifies the baseline with a linear temporal trend", "aside": "That paper's curve “depends on 5 parameters”, and it treats each series as a stochastic process."}, {"name": "Claude", "ok": false, "answer": "No answer (time limit)", "calls": 57, "opened": false, "aside": "The target paper appears in its search results at ten steps, and it never opens it."}, {"name": "Kimi", "ok": false, "answer": "<i>Generalized logistic growth modeling of the COVID-19 outbreak …<\/i> (2020), forced at the message limit", "calls": 20, "opened": false, "quote": "Let me try more specific phrase searches to verify the linear-trend component in the Wu et al. paper.", "aside": "Said before the limit. The paper it returns adds no linear trend to a plateau."}, {"name": "DeepSeek", "ok": true, "answer": "Target paper", "calls": 13, "opened": true, "quote": "Critically, section 3.2 introduces equation (3.4): P(t)=(M+ct)/(1+e^(−at+b))^α, a linear-trend-adjusted variant explicitly designed for outbreaks like South Korea where the plateau is not flat."}], "note": "Whether a model has four parameters, is deterministic, and adds a linear final trend can only be checked against its equations. Only DeepSeek opens the target paper and quotes the equation."}, {"setting": "implicit", "domain": "math", "query": "I'm trying to identify parametric spatiotemporal dynamical models where the coefficients exhibit step changes, but I'm struggling with the sharp transitions in the loss landscape when tuning regularization. I need a procedure that handles these coefficient variations without requiring Bayesian uncertainty quantification, and I want to avoid methods that get bogged down in handling missing data. I also need an approach that is illustrated with less real data than ‘DeepMoD: Deep learning for Model Discovery in noisy data’, so I can focus on the core identification pipeline without that overhead.", "key": "the sharp transitions in the loss landscape when tuning regularization", "gold": "<a href=\"https://arxiv.org/abs/1806.00732\" target=\"_blank\" rel=\"noopener\">Data-driven identification of parametric partial differential equations<\/a> (2018), which plots its loss over 50 threshold values in a figure and tests only on simulated equations.", "agents": [{"name": "Codex", "ok": true, "answer": "Target paper", "calls": 7, "opened": true, "quote": "It analyzes model-selection loss while sweeping regularization thresholds, is deterministic rather than Bayesian, does not focus on missing-data recovery, and uses four synthetic canonical systems with no experimental dataset …"}, {"name": "Claude", "ok": true, "answer": "Target paper", "calls": 18, "opened": true, "quote": "Fig. 2 shows the loss exhibiting sharp step-like transitions as the ridge/threshold regularization (ε, λ) is tuned, the method (SGTR group sparse regression) is a deterministic point estimate …"}, {"name": "Kimi", "ok": false, "answer": "No answer, forced at the message limit", "calls": 25, "opened": false, "quote": "DeepMoD has one real experiment. ‘less real data than DeepMoD’ then zero real datasets. Candidate likely synthetic only.", "aside": "Said while searching. The target paper appears once in its search results, and it never opens it."}, {"name": "DeepSeek", "ok": false, "answer": "<i>Estimating Varying Parameters in Dynamical Systems …<\/i> (2024)", "calls": 12, "opened": false, "quote": "fits piecewise-constant parameter-varying models using optimization-based parameter estimation (Nelder-Mead and Powell methods) rather than regularization-tuned sparse regression.", "aside": "Its paper never tunes a regularization parameter and plots no loss curve."}], "note": "The target paper never says that it is non-Bayesian, ignores missing data, or uses only simulated data, and the sharp jump in its loss appears only in a figure. Codex and Claude open it and check each point; Claude cites the figure."}, {"setting": "cumulative", "domain": "eess", "turns": ["I'm looking for a concrete scholarly method I can adapt for a learning-based engineering project with a tightly limited pipeline …", "… I want the physical assumptions encoded directly in the learned representation, not supplied as inputs or imposed through auxiliary optimization terms. … The way the method integrates physics must also differ from ‘TiRE-GAN: Task-Incentivized Generative Learning for Radiomap Estimation’ …", "… the method should be tied to a specific architecture rather than being backbone-agnostic. Compared with ‘RadioGAT …’, it needs to use different physical knowledge …", "… Transmitter-side paths should pair one-to-one with ellipsoids, while receiver-side rays are sampled independently of the ellipsoid count. Scattered paths must accumulate attenuation on both the transmitter and receiver sides, whereas the direct path does so only once … Please commit to one paper now …"], "gold": "<a href=\"https://arxiv.org/abs/2510.26166\" target=\"_blank\" rel=\"noopener\">6D Channel Knowledge Map Construction via Bidirectional Wireless Gaussian Splatting<\/a> (2025). Only the last turn singles it out.", "agents": [{"name": "Codex", "ok": false, "steps": ["none", "none", "nGRF ✗"], "quote": "transmitter-to-Gaussian paths correspond to primitives while receiver rays are sampled separately; scattered components account for both path segments …", "aside": "nGRF samples no receiver rays and carries interference through phases, not attenuation."}, {"name": "Claude", "ok": true, "steps": ["RadioDUN", "RadioDUN", "Target ✓"], "quote": "This resolves it — and it overturns my earlier RadioDUN pick, which was wrong for these mechanics.", "aside": "Said at T4, after opening the target paper."}, {"name": "Kimi", "ok": false, "steps": ["NeRF²", "NeRF²", "“WRF-GS” ✗"], "hot": true, "quote": "WRF-GS (2411.19356, full text and equations verified) satisfies all constraints …", "aside": "That id belongs to an unrelated study of public perception of AI, and Kimi never read it."}, {"name": "DeepSeek", "ok": true, "steps": ["none", "PeFNO / PERNN", "Target ✓"], "aside": "Names the target paper from a search snippet without opening it."}], "note": "Each step shows the paper the agent proposes after that turn. Claude is the one agent that drops an earlier pick after opening the target paper."}, {"setting": "cumulative", "domain": "econ", "turns": ["I'm trying to get rigorous evidence on whether changing access to a workplace aid alters performance disparities between people with different levels of experience. …", "For the less-experienced group, the paper has to show that removing AI access increased both novices' output quantity and their success rate. …", "… I need a distributional check because inactivity might be concentrated in one kind of work. The frequency of zero counts should be highest for issue-closing events and lowest when all event types are summed.", "To position this evidence alongside ‘Who is using AI to code? Global diffusion and impact of generative AI’, the paper should use a different task design, analyze a smaller sample, and report more detailed quality outcomes. … please commit to one paper now …"], "gold": "<a href=\"https://arxiv.org/abs/2403.01964\" target=\"_blank\" rel=\"noopener\">The Heterogeneous Productivity Effects of Generative AI<\/a> (2024), which studies the GitHub activity of over 36,000 users around Italy's ChatGPT ban.", "agents": [{"name": "Codex", "ok": true, "steps": ["none", "none", "Target ✓"], "quote": "I've found a strong exact-match candidate. Its data show the required ordering of zero-count frequencies …", "aside": "Said at T3, before naming it."}, {"name": "Claude", "ok": true, "steps": ["AI Assistance Reduces Persistence", "Target", "Target ✓"], "quote": "This is your paper — and I've now verified the distributional check directly against the figures …", "aside": "Said at T3, after dropping its T2 pick, which has no split by experience."}, {"name": "Kimi", "ok": false, "steps": ["Otis et al. / Luo et al. (tentative)", "Hoffmann et al. (not on arXiv)", "Abstains ✗"], "quote": "nothing I can locate and verify satisfies all of your binding constraints simultaneously."}, {"name": "DeepSeek", "ok": false, "steps": ["Generative AI at Work", "Same", "Same ✗"], "hot": true, "quote": "Given your instruction to commit, I'm going with this paper despite being unable to 100% confirm one distributional detail.", "aside": "That paper studies 5,172 customer support agents and has no GitHub event counts. (In this run the simulated user misstated one T3 detail, so we judge DeepSeek only on the zero-count check.)"}], "note": "The zero-count check at T3 points to GitHub activity data. Claude acts on it and drops its earlier pick; DeepSeek keeps the paper it found at T1 through all four turns."}]</script>
@@ -555,14 +494,6 @@ print(row[<span class="c-str">"paper"</span>][<span class="c-str">"title"</span>
   document.getElementById("verdict").innerHTML = VD.map(function (r) { return '<span class="ag">' + r[0] + '</span><div class="bar">' + seg("ab", r[1]) + seg("nm", r[2]) + seg("ot", r[3]) + "</div>"; }).join("") + '<div class="lg2"><span><i style="background:var(--ok)"></i>Abstained (correct)</span><span><i style="background:var(--no)"></i>Named the near-miss</span><span><i style="background:#e8a3a6"></i>Named another paper</span></div>';
   document.getElementById("verdict-table").innerHTML += "<tr><th>Agent</th><th>Abstained (%)</th><th>Named the near-miss (%)</th><th>Named another paper (%)</th></tr>" + VD.map(function (r) { return "<tr><th>" + r[0] + "</th><td>" + r[1] + "</td><td>" + r[2] + "</td><td>" + r[3] + "</td></tr>"; }).join("");
 
-  /* implicit funnel: [agent, [retrieved, read, answered] on Implicit, same on Standard] */
-  var FN = [["Codex", [72, 69, 67.7], [89, 90, 87.1]], ["Claude", [82, 69, 65.9], [94, 85, 86.0]], ["Kimi", [72, 59, 51.8], [87, 81, 78.0]], ["DeepSeek", [64, 49, 37.3], [91, 83, 74.3]]];
-  document.getElementById("funnel").innerHTML = '<span></span><span class="h">Retrieved</span><span class="h">Opened</span><span class="h">Chosen</span>' + FN.map(function (r) { return '<span class="ag">' + r[0] + "</span>" + r[1].map(function (v, i) { return '<div class="cell" style="--c:var(--imp)"><div class="track"><div class="fill" style="width:' + v + '%"></div><div class="tick" style="left:' + r[2][i] + '%"></div></div><span class="num">' + (v % 1 ? v.toFixed(1) : v) + "</span></div>"; }).join(""); }).join("");
-  /* cumulative recovery: [agent, ever picked a wrong paper, recovered to target] */
-  var RC = [["Codex", 41.4, 3.6], ["Claude", 65.9, 25.5], ["Kimi", 74.1, 12.3], ["DeepSeek", 73.6, 11.8]];
-  var rc = document.getElementById("recover"); rc.className = "mini one";
-  rc.innerHTML = RC.map(function (r) { return '<span class="ag">' + r[0] + '</span><div class="bar"><span style="width:' + (r[1] - r[2]).toFixed(1) + '%;background:var(--cum);color:#fff">' + (r[1] - r[2]).toFixed(1) + '</span><span style="width:' + r[2] + '%;background:var(--ok);color:#fff">' + (r[2] >= 8 ? r[2].toFixed(1) : "") + "</span></div>"; }).join("") + '<div class="lg2"><span><i style="background:var(--cum)"></i>Picked a wrong paper and never reached the target</span><span><i style="background:var(--ok)"></i>Picked a wrong paper, later recovered</span></div>';
-
   /* cases */
   var CASES = JSON.parse(document.getElementById("cases-data").textContent);
   var DN = { physics: "physics", cs: "computer science", eess: "EESS", stat: "statistics", math: "mathematics", "q-bio": "biology", "q-fin": "finance", econ: "economics" };
@@ -576,10 +507,10 @@ print(row[<span class="c-str">"paper"</span>][<span class="c-str">"title"</span>
     h += '<ul class="agents">';
     c.agents.forEach(function (a) {
       var ok = a.ok;
-      h += "<li><div><div class=\"who\">" + a.name + '</div><span class="v ' + (ok ? "ok" : "no") + '">' + (ok ? "✓ correct" : "✗ wrong") + "</span></div><div>";
-      if (a.steps) { h += '<div class="steps">' + a.steps.map(function (s, i) { return "<span><i>" + (i === a.steps.length - 1 ? "after T" + (i + 2) + " (final)" : "after T" + (i + 2)) + "</i>" + s + "</span>"; }).join("") + "</div>"; }
+      h += "<li><div><div class=\"who\">" + a.name + '</div><span class="v">' + (ok ? "correct" : "wrong") + "</span></div><div>";
+      if (a.steps) { h += '<div class="steps">' + a.steps.map(function (s, i) { return "<span><i>" + (i === a.steps.length - 1 ? "after T" + (i + 2) + " (final)" : "after T" + (i + 2)) + "</i>" + s.replace(/ [✓✗]$/, "") + "</span>"; }).join("") + "</div>"; }
       else h += '<div class="ans">' + a.answer + (a.calls ? '<span class="meta">' + a.calls + " calls · " + (a.opened ? "opened it" : "did not open it") + "</span>" : "") + "</div>";
-      if (a.quote) h += '<blockquote class="' + (a.hot ? "hot" : "") + '">“' + a.quote + "”</blockquote>";
+      if (a.quote) h += "<blockquote>“" + a.quote + "”</blockquote>";
       if (a.aside) h += '<span class="aside">' + a.aside + "</span>";
       h += "</div></li>";
     });
@@ -618,7 +549,7 @@ print(row[<span class="c-str">"paper"</span>][<span class="c-str">"title"</span>
     b.textContent = SET[s].n; b.addEventListener("click", function () { cur.s = s; cur.k = 0; draw(); }); st.appendChild(b);
   });
   function exHTML(e, n) {
-    var h = '<div class="ex-head"><h3>' + esc(e.hook) + '</h3><p class="why">' + esc(e.why) + "</p></div>";
+    var h = '<div class="ex-head"><p class="why">' + esc(e.why) + "</p></div>";
     h += '<div class="ex-body"><div>';
     if (e.turns) { h += '<span class="lbl">Conversation · ' + e.turns.length + ' user turns</span><div class="ex-turns">' + e.turns.map(function (t, i) { return '<div class="turn"><span class="tn">T' + (i + 1) + "</span><p>" + esc(t) + "</p></div>"; }).join("") + "</div>"; }
     else h += '<span class="lbl">Query' + (e.intent ? " · " + esc(e.intent) : "") + '</span><p class="ex-q">' + markQuery(e.question, e.added, "false") + "</p>";
