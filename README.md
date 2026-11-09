@@ -7,7 +7,7 @@
 
 <div align="center">
 
-[![Paper](https://img.shields.io/badge/Paper-coming_soon-b5212f.svg?logo=arxiv)]([https://dayoon-ko.github.io/CompLit/](https://arxiv.org/abs/2610.28658))
+[![Paper](https://img.shields.io/badge/Paper-arXiv-b5212f.svg?logo=arxiv)](https://arxiv.org/abs/2610.28658)
 [![Project Page](https://img.shields.io/badge/Project-Page-0084ff.svg)](https://dayoon-ko.github.io/CompLit/)
 [![Dataset](https://img.shields.io/badge/Dataset-Hugging_Face-ffd21e.svg?logo=huggingface)](https://huggingface.co/datasets/dayoon/CompLit)
 
